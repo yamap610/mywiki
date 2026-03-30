@@ -38,14 +38,15 @@ body {
   padding-bottom: 80px;
 }
 
-/* ── HEADER ── */
+/* ── HEADER - 改為暖色調，延續首頁風格 ── */
 .app-header {
-  background: linear-gradient(135deg, var(--deep) 0%, var(--brown) 60%, var(--moon2) 100%);
-  padding: 20px 16px 16px;
+  background: var(--white);
+  border-bottom: 1.5px solid var(--latte);
+  padding: 16px 16px 12px;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px var(--shadow-md);
+  box-shadow: 0 2px 12px var(--shadow);
 }
 .header-top {
   display: flex;
@@ -55,19 +56,19 @@ body {
 }
 .app-title {
   font-family: 'Noto Serif TC', serif;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--deep);
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.app-title .emoji { font-size: 1.5rem; }
+.app-title .emoji { font-size: 1.4rem; }
 .app-subtitle {
   font-size: 0.72rem;
-  color: var(--moon-light);
-  opacity: 0.85;
+  color: var(--muted);
   letter-spacing: 0.05em;
+  margin-top: 1px;
 }
 .header-actions {
   display: flex;
@@ -75,8 +76,8 @@ body {
   align-items: center;
 }
 .icon-btn {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: var(--cream);
+  border: 1px solid var(--latte);
   border-radius: 10px;
   width: 36px;
   height: 36px;
@@ -84,12 +85,11 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--white);
+  color: var(--brown);
   font-size: 1rem;
   transition: background 0.2s;
-  backdrop-filter: blur(4px);
 }
-.icon-btn:hover { background: rgba(255,255,255,0.25); }
+.icon-btn:hover { background: var(--moon-soft); }
 
 /* Search bar */
 .search-bar {
@@ -98,20 +98,19 @@ body {
 }
 .search-input {
   flex: 1;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: var(--cream);
+  border: 1.5px solid var(--latte);
   border-radius: 12px;
   padding: 9px 14px 9px 36px;
-  color: var(--white);
+  color: var(--text);
   font-family: 'Zen Kaku Gothic New', sans-serif;
   font-size: 0.88rem;
   outline: none;
-  backdrop-filter: blur(4px);
-  transition: background 0.2s;
+  transition: border-color 0.2s, background 0.2s;
   position: relative;
 }
-.search-input::placeholder { color: rgba(255,255,255,0.6); }
-.search-input:focus { background: rgba(255,255,255,0.28); }
+.search-input::placeholder { color: var(--muted); opacity: 0.6; }
+.search-input:focus { border-color: var(--moon); background: var(--white); }
 .search-wrap {
   position: relative;
   flex: 1;
@@ -121,7 +120,7 @@ body {
   left: 11px;
   top: 50%;
   transform: translateY(-50%);
-  color: rgba(255,255,255,0.7);
+  color: var(--muted);
   font-size: 0.9rem;
   pointer-events: none;
 }
@@ -200,7 +199,10 @@ body {
   display: flex;
   gap: 8px;
   margin-bottom: 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.stats-bar::-webkit-scrollbar { display: none; }
 .stat-pill {
   background: var(--white);
   border: 1px solid var(--latte);
@@ -211,6 +213,8 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .stat-pill strong { color: var(--moon2); }
 
@@ -219,9 +223,6 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-}
-@media (min-width: 480px) {
-  .cards-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ── LIST VIEW ── */
@@ -264,14 +265,6 @@ body {
 .card-thumb .thumb-placeholder { 
   font-size: 2.5rem;
   opacity: 0.5;
-}
-.card-thumb-url {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(61,43,26,0.6));
-  padding: 12px 8px 4px;
 }
 .card-body {
   padding: 10px;
@@ -416,6 +409,8 @@ body {
   overscroll-behavior: contain;
   animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
   scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
 }
 .modal::-webkit-scrollbar { display: none; }
 
@@ -435,16 +430,18 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
+/* ── 修正：modal-header 固定在頂部 ── */
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 18px 18px 12px;
   border-bottom: 1px solid var(--latte);
-  position: sticky;
-  top: 0;
   background: var(--white);
   z-index: 1;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
 }
 .modal-title {
   font-family: 'Noto Serif TC', serif;
@@ -467,7 +464,12 @@ body {
 }
 .modal-close:hover { background: var(--latte); }
 
-.modal-body { padding: 16px 18px 24px; }
+.modal-body { 
+  padding: 16px 18px 24px; 
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 /* ── FORM ── */
 .form-group { margin-bottom: 14px; }
@@ -585,11 +587,16 @@ body {
   justify-content: center;
 }
 
-/* Buttons */
+/* ── 修正：btn-row 固定在底部可見 ── */
 .btn-row {
   display: flex;
   gap: 10px;
   margin-top: 18px;
+  padding: 14px 0 6px;
+  position: sticky;
+  bottom: 0;
+  background: var(--white);
+  z-index: 2;
 }
 .btn {
   flex: 1;
@@ -625,7 +632,6 @@ body {
   justify-content: center;
   font-size: 4rem;
   overflow: hidden;
-  border-radius: 16px 16px 0 0;
 }
 .detail-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .detail-cat-row {
@@ -660,6 +666,7 @@ body {
   line-height: 1.7;
   white-space: pre-wrap;
   margin-bottom: 14px;
+  word-break: break-word;
 }
 .detail-url-btn {
   display: flex;
@@ -863,7 +870,7 @@ body {
 /* Highlight search */
 mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; padding: 0 2px; }
 
-/* Floating room code badge */
+/* Room code badge */
 .room-badge {
   position: fixed;
   bottom: 28px;
@@ -882,6 +889,19 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   gap: 5px;
   white-space: nowrap;
   pointer-events: none;
+}
+
+/* ── 手機版 overflow-x 支援 ── */
+@media (max-width: 540px) {
+  .modal-body {
+    padding: 14px 14px 20px;
+  }
+  .cat-grid {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cat-grid::-webkit-scrollbar { display: none; }
 }
 
 </style>
@@ -938,7 +958,6 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
     </div>
     <div class="filter-divider"></div>
     <button class="filter-chip active" data-cat="all" onclick="setCatFilter('all')">全部</button>
-    <!-- dynamic cat chips injected here -->
   </div>
 
   <!-- Main -->
@@ -965,7 +984,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <!-- ══ ADD/EDIT MODAL ══ -->
 
 <div class="overlay" id="addOverlay" onclick="closeOverlay(this,'addModal')">
-  <div class="modal" id="addModal" onclick="e=>e.stopPropagation()">
+  <div class="modal" id="addModal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div class="modal-title" id="addModalTitle">📝 新增收藏</div>
       <button class="modal-close" onclick="closeAddModal()">✕</button>
@@ -1011,14 +1030,6 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <input id="fImgUrl" class="form-input" type="url" placeholder="或直接貼上圖片網址" style="margin-top:6px;" oninput="onImgUrlInput()">
       </div>
       <div class="form-group">
-        <label class="form-label">標籤 <span style="font-weight:300;color:var(--muted)">#</span></label>
-        <div class="tags-input-wrap" id="tagsWrap" onclick="document.getElementById('tagsRawInput').focus()">
-          <span class="tags-text-input-placeholder" id="tagsPlaceholder" style="font-size:0.82rem;color:var(--muted);opacity:0.6;pointer-events:none;">輸入後按 Enter 新增，例：必試・親子</span>
-        </div>
-        <input id="tagsRawInput" type="text" style="position:absolute;opacity:0;width:1px;height:1px;" placeholder="">
-        <div class="form-hint">輸入文字後按 Enter 或逗號新增標籤</div>
-      </div>
-      <div class="form-group">
         <label class="form-label">筆記內容</label>
         <textarea id="fNote" class="form-textarea" placeholder="記下重點、心得、使用方式…"></textarea>
       </div>
@@ -1033,7 +1044,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <!-- ══ DETAIL MODAL ══ -->
 
 <div class="overlay" id="detailOverlay" onclick="closeOverlay(this,'detailModal')">
-  <div class="modal" id="detailModal" onclick="e=>e.stopPropagation()">
+  <div class="modal" id="detailModal" onclick="event.stopPropagation()">
     <div id="detailThumb" class="detail-thumb"></div>
     <div class="modal-body" style="padding-top:14px;">
       <div class="detail-cat-row" id="detailCatRow"></div>
@@ -1056,12 +1067,12 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <!-- ══ CONFIRM MODAL ══ -->
 
 <div class="overlay center-modal" id="confirmOverlay">
-  <div class="modal small-modal" onclick="e=>e.stopPropagation()">
+  <div class="modal small-modal" onclick="event.stopPropagation()">
     <div class="confirm-body">
       <div class="confirm-icon">🗑️</div>
       <div class="confirm-title">確定要刪除嗎？</div>
       <div class="confirm-msg" id="confirmMsg">這筆收藏將會永久刪除，無法復原。</div>
-      <div class="btn-row">
+      <div class="btn-row" style="position:static;">
         <button class="btn btn-secondary" onclick="closeConfirm()">取消</button>
         <button class="btn btn-danger" onclick="doDelete()">確定刪除</button>
       </div>
@@ -1072,7 +1083,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <!-- ══ SETTINGS MODAL ══ -->
 
 <div class="overlay" id="settingsOverlay" onclick="closeOverlay(this,'settingsModal')">
-  <div class="modal" id="settingsModal" onclick="e=>e.stopPropagation()">
+  <div class="modal" id="settingsModal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div class="modal-title">⚙️ 設定</div>
       <button class="modal-close" onclick="closeSettings()">✕</button>
@@ -1105,7 +1116,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <!-- ══ IO MODAL ══ -->
 
 <div class="overlay" id="ioOverlay" onclick="closeOverlay(this,'ioModal')">
-  <div class="modal" id="ioModal" onclick="e=>e.stopPropagation()">
+  <div class="modal" id="ioModal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div class="modal-title">📦 匯出 / 匯入</div>
       <button class="modal-close" onclick="closeIo()">✕</button>
@@ -1146,7 +1157,6 @@ import {
   onSnapshot, serverTimestamp, query, orderBy
 } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js';
 
-// ── FIREBASE CONFIG ──
 const firebaseConfig = {
   apiKey: "AIzaSyAy0QKDrORa_VSecvEbeUxjMkRU4jd-QEM",
   authDomain: "five-year-diary-d7e00.firebaseapp.com",
@@ -1155,10 +1165,9 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 
-// ── STATE ──
 let roomCode = '';
-let entries = [];    // [{id, title, cat, url, imgUrl, imgData, note, tags, createdAt}]
-let categories = []; // [{id, emoji, name}]
+let entries = [];
+let categories = [];
 let currentView = 'grid';
 let currentCat = 'all';
 let searchQ = '';
@@ -1169,7 +1178,6 @@ let imgBase64 = null;
 let unsubEntries = null;
 let unsubMeta = null;
 
-// ── DEFAULT CATEGORIES ──
 const DEFAULT_CATS = [
   { id: 'parenting', emoji: '👶🏻', name: '育兒知識' },
   { id: 'travel',    emoji: '✈️', name: '旅遊筆記' },
@@ -1179,7 +1187,6 @@ const DEFAULT_CATS = [
   { id: 'shopping',  emoji: '🛍', name: '好物推薦' },
 ];
 
-// ── EXPOSE TO GLOBAL ──
 window.doLogin = doLogin;
 window.openAddModal = openAddModal;
 window.closeAddModal = closeAddModal;
@@ -1208,9 +1215,7 @@ window.onImgUrlInput = onImgUrlInput;
 window.onUrlInput = onUrlInput;
 window.fetchUrlPreview = fetchUrlPreview;
 
-// ── INIT ──
 function init() {
-  // Check URL param or localStorage
   const params = new URLSearchParams(location.search);
   const codeFromUrl = params.get('code');
   const codeFromStorage = localStorage.getItem('dash_last_room');
@@ -1237,7 +1242,6 @@ function startApp(code) {
   subscribeData();
 }
 
-// ── FIRESTORE SUBSCRIBE ──
 function subscribeData() {
   const metaRef = doc(db, 'vault_meta_v1', roomCode);
   const entriesRef = query(
@@ -1245,7 +1249,6 @@ function subscribeData() {
     orderBy('createdAt', 'desc')
   );
 
-  // Meta (categories)
   unsubMeta = onSnapshot(metaRef, snap => {
     if (snap.exists()) {
       const data = snap.data();
@@ -1258,7 +1261,6 @@ function subscribeData() {
     renderCatEditList();
   });
 
-  // Entries
   unsubEntries = onSnapshot(entriesRef, snap => {
     entries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderCards();
@@ -1266,16 +1268,13 @@ function subscribeData() {
   });
 }
 
-// ── SAVE META ──
 async function saveMeta() {
   const metaRef = doc(db, 'vault_meta_v1', roomCode);
   await setDoc(metaRef, { categories }, { merge: true });
 }
 
-// ── RENDER FILTER CHIPS ──
 function renderFilterChips() {
   const bar = document.getElementById('filterBar');
-  // Remove old dynamic chips
   bar.querySelectorAll('.filter-chip').forEach(c => c.remove());
   
   const allChip = document.createElement('button');
@@ -1295,7 +1294,6 @@ function renderFilterChips() {
   });
 }
 
-// ── RENDER CAT GRID (in form) ──
 function renderCatGrid() {
   const grid = document.getElementById('catGrid');
   if (!grid) return;
@@ -1309,7 +1307,6 @@ function renderCatGrid() {
   });
 }
 
-// ── RENDER CAT EDIT LIST ──
 function renderCatEditList() {
   const list = document.getElementById('catEditList');
   if (!list) return;
@@ -1342,7 +1339,6 @@ window.deleteCategory = async function(i) {
   renderFilterChips();
 };
 
-// ── FILTER / SEARCH ──
 function getFiltered() {
   let list = [...entries];
   if (currentCat !== 'all') list = list.filter(e => e.cat === currentCat);
@@ -1378,7 +1374,6 @@ function setView(v) {
   renderCards();
 }
 
-// ── RENDER STATS ──
 function renderStats() {
   const sb = document.getElementById('statsBar');
   sb.innerHTML = `
@@ -1388,7 +1383,6 @@ function renderStats() {
       return cnt > 0 ? `<div class="stat-pill">${c.emoji}<strong>${cnt}</strong></div>` : '';
     }).join('')}
   `;
-  // settings stats
   const sd = document.getElementById('statsDetail');
   if (sd) {
     sd.innerHTML = categories.map(c => {
@@ -1398,7 +1392,6 @@ function renderStats() {
   }
 }
 
-// ── RENDER CARDS ──
 function renderCards() {
   const container = document.getElementById('cardsContainer');
   const list = getFiltered();
@@ -1429,7 +1422,6 @@ function renderCards() {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const domain = e.url ? tryGetDomain(e.url) : '';
-      const tagChips = e.tags ? e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="card-tag">${t}</span>`).join('') : '';
       return `
         <div class="card card-grid" onclick="openDetail('${e.id}')">
           <div class="card-thumb">
@@ -1441,7 +1433,6 @@ function renderCards() {
             <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
             <div class="card-title">${hl(e.title)}</div>
             ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
-            ${tagChips ? `<div class="card-tags">${tagChips}</div>` : ''}
             ${domain ? `<div class="card-url-chip">🔗 ${domain}</div>` : ''}
           </div>
         </div>`;
@@ -1452,7 +1443,6 @@ function renderCards() {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleDateString('zh-TW') : '';
-      const tagChips = e.tags ? e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="card-tag">${t}</span>`).join('') : '';
       return `
         <div class="card card-list" onclick="openDetail('${e.id}')">
           <div class="card-thumb-sm">
@@ -1464,7 +1454,6 @@ function renderCards() {
             <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
             <div class="card-title">${hl(e.title)}</div>
             ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
-            ${tagChips ? `<div class="card-tags" style="margin-top:4px;">${tagChips}</div>` : ''}
             <div class="card-date">${dateStr}</div>
           </div>
         </div>`;
@@ -1476,7 +1465,6 @@ function tryGetDomain(url) {
   try { return new URL(url).hostname.replace('www.', ''); } catch { return ''; }
 }
 
-// ── ADD / EDIT MODAL ──
 function openAddModal(idToEdit = null) {
   editingId = idToEdit;
   imgBase64 = null;
@@ -1513,25 +1501,23 @@ function openAddModal(idToEdit = null) {
   }
 
   renderCatGrid();
-  document.body.classList.add('modal-open');
   document.getElementById('addOverlay').classList.add('active');
-  document.getElementById('fTitle').focus();
+  // 確保 modal 滾動到頂部
+  document.getElementById('addModal').scrollTop = 0;
+  setTimeout(() => document.getElementById('fTitle').focus(), 200);
 }
 
 function closeAddModal() {
   document.getElementById('addOverlay').classList.remove('active');
-  document.body.classList.remove('modal-open');
   editingId = null;
 }
 
 function closeOverlay(overlay, modalId) {
   if (event && event.target === overlay) {
     overlay.classList.remove('active');
-    document.body.classList.remove('modal-open');
   }
 }
 
-// ── URL PREVIEW ──
 function onUrlInput() {
   const url = document.getElementById('fUrl').value.trim();
   if (!url) document.getElementById('urlPreview').classList.remove('visible');
@@ -1549,7 +1535,6 @@ function fetchUrlPreview() {
   } catch {}
 }
 
-// ── IMAGE HANDLING ──
 function onImgFile(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -1580,14 +1565,12 @@ function removeImg() {
   document.getElementById('imgFileInput').value = '';
 }
 
-// ── SAVE ENTRY ──
 async function saveEntry() {
   const title = document.getElementById('fTitle').value.trim();
   if (!title) { showToast('請填寫標題'); return; }
 
   const imgUrl = document.getElementById('fImgUrl').value.trim();
   const rawTags = document.getElementById('fTags').value.trim();
-  // normalize tags: ensure all start with #
   const tags = rawTags ? rawTags.split(/[\s,，]+/).filter(Boolean).map(t => t.startsWith('#') ? t : '#'+t).join(' ') : '';
 
   const data = {
@@ -1615,7 +1598,6 @@ async function saveEntry() {
   closeAddModal();
 }
 
-// ── DETAIL MODAL ──
 function openDetail(id) {
   const e = entries.find(x => x.id === id);
   if (!e) return;
@@ -1625,7 +1607,6 @@ function openDetail(id) {
   const cat = categories.find(c => c.id === e.cat);
   const thumb = e.imgData || e.imgUrl;
 
-  // Thumb
   const dt = document.getElementById('detailThumb');
   if (thumb) {
     dt.innerHTML = `<img src="${thumb}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
@@ -1636,15 +1617,16 @@ function openDetail(id) {
     dt.style.background = 'var(--cream)';
   }
 
-  // Cat badge
   const dcr = document.getElementById('detailCatRow');
   dcr.innerHTML = cat ? `<span class="detail-cat-badge">${cat.emoji} ${cat.name}</span>` : '';
 
-  // Tags
   const dtags = document.getElementById('detailTags');
   if (e.tags) {
-    dtags.innerHTML = e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="detail-tag">${t}</span>`).join('');
+    dtags.innerHTML = e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="detail-cat-badge" style="font-size:0.72rem;">${t}</span>`).join(' ');
     dtags.style.display = 'flex';
+    dtags.style.flexWrap = 'wrap';
+    dtags.style.gap = '4px';
+    dtags.style.marginBottom = '8px';
   } else {
     dtags.style.display = 'none';
   }
@@ -1665,13 +1647,11 @@ function openDetail(id) {
   const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleString('zh-TW') : '';
   document.getElementById('detailMeta').textContent = dateStr ? `新增於 ${dateStr}` : '';
 
-  document.body.classList.add('modal-open');
   document.getElementById('detailOverlay').classList.add('active');
 }
 
 function closeDetailModal() {
   document.getElementById('detailOverlay').classList.remove('active');
-  document.body.classList.remove('modal-open');
 }
 
 function editEntry() {
@@ -1679,7 +1659,6 @@ function editEntry() {
   setTimeout(() => openAddModal(editingId), 100);
 }
 
-// ── DELETE ──
 function confirmDelete() {
   document.getElementById('confirmOverlay').classList.add('active');
 }
@@ -1698,18 +1677,15 @@ async function doDelete() {
   deletingId = null;
 }
 
-// ── SETTINGS ──
 function openSettings() {
   document.getElementById('settingRoom').textContent = roomCode;
   renderCatEditList();
   renderStats();
-  document.body.classList.add('modal-open');
   document.getElementById('settingsOverlay').classList.add('active');
 }
 
 function closeSettings() {
   document.getElementById('settingsOverlay').classList.remove('active');
-  document.body.classList.remove('modal-open');
 }
 
 function changeRoom() {
@@ -1734,9 +1710,8 @@ async function addCategory() {
   showToast('✅ 分類已新增');
 }
 
-// ── IO ──
-function openIo() { document.body.classList.add('modal-open'); document.getElementById('ioOverlay').classList.add('active'); }
-function closeIo() { document.getElementById('ioOverlay').classList.remove('active'); document.body.classList.remove('modal-open'); }
+function openIo() { document.getElementById('ioOverlay').classList.add('active'); }
+function closeIo() { document.getElementById('ioOverlay').classList.remove('active'); }
 
 function exportJson() {
   const data = {
@@ -1800,7 +1775,6 @@ function todayStr() {
   return new Date().toISOString().slice(0,10);
 }
 
-// ── TOAST ──
 function showToast(msg) {
   const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
@@ -1811,7 +1785,6 @@ function showToast(msg) {
 }
 window.showToast = showToast;
 
-// ── START ──
 init();
 </script>
 
