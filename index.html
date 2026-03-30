@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -27,7 +28,7 @@
   --radius-sm: 10px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 body {
   background: var(--milk);
@@ -398,6 +399,8 @@ body {
   align-items: flex-end;
   justify-content: center;
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  overscroll-behavior: contain;
 }
 .overlay.active { display: flex; }
 .overlay.center-modal { align-items: center; }
@@ -409,6 +412,8 @@ body {
   max-width: 540px;
   max-height: 92vh;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
   scrollbar-width: none;
 }
@@ -861,12 +866,13 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 /* Floating room code badge */
 .room-badge {
   position: fixed;
-  bottom: 92px;
-  left: 16px;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   background: var(--white);
   border: 1px solid var(--latte);
   border-radius: 20px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   font-size: 0.72rem;
   color: var(--muted);
   z-index: 150;
@@ -874,13 +880,17 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   display: flex;
   align-items: center;
   gap: 5px;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 </style>
+
 </head>
 <body>
 
 <!-- ══ LOGIN SCREEN ══ -->
+
 <div id="loginScreen" class="login-screen" style="display:none">
   <div class="login-icon">📖</div>
   <div class="login-title">M.Y 小百科</div>
@@ -895,9 +905,11 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- ══ APP ══ -->
+
 <div id="app" style="display:none">
 
   <!-- Header -->
+
   <header class="app-header">
     <div class="header-top">
       <div>
@@ -918,6 +930,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   </header>
 
   <!-- Filter bar -->
+
   <div class="filter-bar" id="filterBar">
     <div class="view-toggle">
       <button class="view-btn active" id="btnGrid" onclick="setView('grid')">▦</button>
@@ -929,23 +942,28 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   </div>
 
   <!-- Main -->
+
   <main class="main">
     <div class="stats-bar" id="statsBar"></div>
     <div id="cardsContainer"></div>
   </main>
 
   <!-- FAB -->
-  <button class="fab" onclick="openAddModal()">＋</button>
+
+<button class="fab" onclick="openAddModal()">＋</button>
 
   <!-- Room badge -->
+
   <div class="room-badge" id="roomBadge">🏠 <span id="roomCodeDisplay">-</span></div>
 
 </div>
 
 <!-- ══ TOAST ══ -->
+
 <div class="toast-wrap" id="toastWrap"></div>
 
 <!-- ══ ADD/EDIT MODAL ══ -->
+
 <div class="overlay" id="addOverlay" onclick="closeOverlay(this,'addModal')">
   <div class="modal" id="addModal" onclick="e=>e.stopPropagation()">
     <div class="modal-header">
@@ -956,6 +974,11 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       <div class="form-group">
         <label class="form-label">標題 <span class="req">*</span></label>
         <input id="fTitle" class="form-input" type="text" placeholder="例：花蓮太魯閣一日遊">
+      </div>
+      <div class="form-group">
+        <label class="form-label">標籤 <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">（用 # 分隔，例：#寶寶 #推薦）</span></label>
+        <input id="fTags" class="form-input" type="text" placeholder="#育兒 #推薦 #待看">
+        <div class="form-hint">輸入 # 開頭的標籤，方便之後搜尋</div>
       </div>
       <div class="form-group">
         <label class="form-label">分類</label>
@@ -988,6 +1011,14 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <input id="fImgUrl" class="form-input" type="url" placeholder="或直接貼上圖片網址" style="margin-top:6px;" oninput="onImgUrlInput()">
       </div>
       <div class="form-group">
+        <label class="form-label">標籤 <span style="font-weight:300;color:var(--muted)">#</span></label>
+        <div class="tags-input-wrap" id="tagsWrap" onclick="document.getElementById('tagsRawInput').focus()">
+          <span class="tags-text-input-placeholder" id="tagsPlaceholder" style="font-size:0.82rem;color:var(--muted);opacity:0.6;pointer-events:none;">輸入後按 Enter 新增，例：必試・親子</span>
+        </div>
+        <input id="tagsRawInput" type="text" style="position:absolute;opacity:0;width:1px;height:1px;" placeholder="">
+        <div class="form-hint">輸入文字後按 Enter 或逗號新增標籤</div>
+      </div>
+      <div class="form-group">
         <label class="form-label">筆記內容</label>
         <textarea id="fNote" class="form-textarea" placeholder="記下重點、心得、使用方式…"></textarea>
       </div>
@@ -1000,11 +1031,13 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- ══ DETAIL MODAL ══ -->
+
 <div class="overlay" id="detailOverlay" onclick="closeOverlay(this,'detailModal')">
   <div class="modal" id="detailModal" onclick="e=>e.stopPropagation()">
     <div id="detailThumb" class="detail-thumb"></div>
     <div class="modal-body" style="padding-top:14px;">
       <div class="detail-cat-row" id="detailCatRow"></div>
+      <div class="detail-tags" id="detailTags"></div>
       <div class="detail-title" id="detailTitle"></div>
       <div class="detail-note" id="detailNote"></div>
       <a id="detailUrlBtn" class="detail-url-btn" target="_blank" rel="noopener" style="display:none">
@@ -1021,6 +1054,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- ══ CONFIRM MODAL ══ -->
+
 <div class="overlay center-modal" id="confirmOverlay">
   <div class="modal small-modal" onclick="e=>e.stopPropagation()">
     <div class="confirm-body">
@@ -1036,6 +1070,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- ══ SETTINGS MODAL ══ -->
+
 <div class="overlay" id="settingsOverlay" onclick="closeOverlay(this,'settingsModal')">
   <div class="modal" id="settingsModal" onclick="e=>e.stopPropagation()">
     <div class="modal-header">
@@ -1068,6 +1103,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- ══ IO MODAL ══ -->
+
 <div class="overlay" id="ioOverlay" onclick="closeOverlay(this,'ioModal')">
   <div class="modal" id="ioModal" onclick="e=>e.stopPropagation()">
     <div class="modal-header">
@@ -1102,6 +1138,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- Firebase SDK -->
+
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
 import { 
@@ -1120,7 +1157,7 @@ const db = getFirestore(fbApp);
 
 // ── STATE ──
 let roomCode = '';
-let entries = [];    // [{id, title, cat, url, imgUrl, imgData, note, createdAt}]
+let entries = [];    // [{id, title, cat, url, imgUrl, imgData, note, tags, createdAt}]
 let categories = []; // [{id, emoji, name}]
 let currentView = 'grid';
 let currentCat = 'all';
@@ -1134,7 +1171,7 @@ let unsubMeta = null;
 
 // ── DEFAULT CATEGORIES ──
 const DEFAULT_CATS = [
-  { id: 'parenting', emoji: '👶', name: '育兒知識' },
+  { id: 'parenting', emoji: '👶🏻', name: '育兒知識' },
   { id: 'travel',    emoji: '✈️', name: '旅遊筆記' },
   { id: 'tools',     emoji: '🔧', name: '工具連結' },
   { id: 'manuals',   emoji: '📋', name: '說明書' },
@@ -1314,7 +1351,8 @@ function getFiltered() {
     list = list.filter(e =>
       (e.title || '').toLowerCase().includes(q) ||
       (e.note || '').toLowerCase().includes(q) ||
-      (e.url || '').toLowerCase().includes(q)
+      (e.url || '').toLowerCase().includes(q) ||
+      (e.tags || '').toLowerCase().includes(q)
     );
   }
   return list;
@@ -1391,6 +1429,7 @@ function renderCards() {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const domain = e.url ? tryGetDomain(e.url) : '';
+      const tagChips = e.tags ? e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="card-tag">${t}</span>`).join('') : '';
       return `
         <div class="card card-grid" onclick="openDetail('${e.id}')">
           <div class="card-thumb">
@@ -1402,6 +1441,7 @@ function renderCards() {
             <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
             <div class="card-title">${hl(e.title)}</div>
             ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
+            ${tagChips ? `<div class="card-tags">${tagChips}</div>` : ''}
             ${domain ? `<div class="card-url-chip">🔗 ${domain}</div>` : ''}
           </div>
         </div>`;
@@ -1412,6 +1452,7 @@ function renderCards() {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleDateString('zh-TW') : '';
+      const tagChips = e.tags ? e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="card-tag">${t}</span>`).join('') : '';
       return `
         <div class="card card-list" onclick="openDetail('${e.id}')">
           <div class="card-thumb-sm">
@@ -1423,6 +1464,7 @@ function renderCards() {
             <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
             <div class="card-title">${hl(e.title)}</div>
             ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
+            ${tagChips ? `<div class="card-tags" style="margin-top:4px;">${tagChips}</div>` : ''}
             <div class="card-date">${dateStr}</div>
           </div>
         </div>`;
@@ -1439,6 +1481,7 @@ function openAddModal(idToEdit = null) {
   editingId = idToEdit;
   imgBase64 = null;
   document.getElementById('fTitle').value = '';
+  document.getElementById('fTags').value = '';
   document.getElementById('fUrl').value = '';
   document.getElementById('fNote').value = '';
   document.getElementById('fImgUrl').value = '';
@@ -1452,6 +1495,7 @@ function openAddModal(idToEdit = null) {
     if (e) {
       document.getElementById('addModalTitle').textContent = '✏️ 編輯收藏';
       document.getElementById('fTitle').value = e.title || '';
+      document.getElementById('fTags').value = e.tags || '';
       document.getElementById('fUrl').value = e.url || '';
       document.getElementById('fNote').value = e.note || '';
       selectedCatId = e.cat || null;
@@ -1469,18 +1513,21 @@ function openAddModal(idToEdit = null) {
   }
 
   renderCatGrid();
+  document.body.classList.add('modal-open');
   document.getElementById('addOverlay').classList.add('active');
   document.getElementById('fTitle').focus();
 }
 
 function closeAddModal() {
   document.getElementById('addOverlay').classList.remove('active');
+  document.body.classList.remove('modal-open');
   editingId = null;
 }
 
 function closeOverlay(overlay, modalId) {
   if (event && event.target === overlay) {
     overlay.classList.remove('active');
+    document.body.classList.remove('modal-open');
   }
 }
 
@@ -1539,8 +1586,13 @@ async function saveEntry() {
   if (!title) { showToast('請填寫標題'); return; }
 
   const imgUrl = document.getElementById('fImgUrl').value.trim();
+  const rawTags = document.getElementById('fTags').value.trim();
+  // normalize tags: ensure all start with #
+  const tags = rawTags ? rawTags.split(/[\s,，]+/).filter(Boolean).map(t => t.startsWith('#') ? t : '#'+t).join(' ') : '';
+
   const data = {
     title,
+    tags,
     cat: selectedCatId || null,
     url: document.getElementById('fUrl').value.trim() || null,
     note: document.getElementById('fNote').value.trim() || null,
@@ -1588,6 +1640,15 @@ function openDetail(id) {
   const dcr = document.getElementById('detailCatRow');
   dcr.innerHTML = cat ? `<span class="detail-cat-badge">${cat.emoji} ${cat.name}</span>` : '';
 
+  // Tags
+  const dtags = document.getElementById('detailTags');
+  if (e.tags) {
+    dtags.innerHTML = e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="detail-tag">${t}</span>`).join('');
+    dtags.style.display = 'flex';
+  } else {
+    dtags.style.display = 'none';
+  }
+
   document.getElementById('detailTitle').textContent = e.title || '';
   document.getElementById('detailNote').textContent = e.note || '';
   document.getElementById('detailNote').style.display = e.note ? 'block' : 'none';
@@ -1604,11 +1665,13 @@ function openDetail(id) {
   const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleString('zh-TW') : '';
   document.getElementById('detailMeta').textContent = dateStr ? `新增於 ${dateStr}` : '';
 
+  document.body.classList.add('modal-open');
   document.getElementById('detailOverlay').classList.add('active');
 }
 
 function closeDetailModal() {
   document.getElementById('detailOverlay').classList.remove('active');
+  document.body.classList.remove('modal-open');
 }
 
 function editEntry() {
@@ -1640,11 +1703,13 @@ function openSettings() {
   document.getElementById('settingRoom').textContent = roomCode;
   renderCatEditList();
   renderStats();
+  document.body.classList.add('modal-open');
   document.getElementById('settingsOverlay').classList.add('active');
 }
 
 function closeSettings() {
   document.getElementById('settingsOverlay').classList.remove('active');
+  document.body.classList.remove('modal-open');
 }
 
 function changeRoom() {
@@ -1670,8 +1735,8 @@ async function addCategory() {
 }
 
 // ── IO ──
-function openIo() { document.getElementById('ioOverlay').classList.add('active'); }
-function closeIo() { document.getElementById('ioOverlay').classList.remove('active'); }
+function openIo() { document.body.classList.add('modal-open'); document.getElementById('ioOverlay').classList.add('active'); }
+function closeIo() { document.getElementById('ioOverlay').classList.remove('active'); document.body.classList.remove('modal-open'); }
 
 function exportJson() {
   const data = {
@@ -1749,5 +1814,6 @@ window.showToast = showToast;
 // ── START ──
 init();
 </script>
+
 </body>
 </html>
