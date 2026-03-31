@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -38,7 +37,7 @@ body {
   padding-bottom: 80px;
 }
 
-/* ── HEADER - 改為暖色調，延續首頁風格 ── */
+/* ── HEADER - 改為暖色調,延續首頁風格 ── */
 .app-header {
   background: var(--white);
   border-bottom: 1.5px solid var(--latte);
@@ -90,6 +89,22 @@ body {
   transition: background 0.2s;
 }
 .icon-btn:hover { background: var(--moon-soft); }
+
+/* 回首頁按鈕 */
+.home-btn {
+  background: linear-gradient(135deg, var(--moon) 0%, var(--moon2) 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.home-btn:hover { transform: translateY(-1px); }
 
 /* Search bar */
 .search-bar {
@@ -167,7 +182,7 @@ body {
   flex-shrink: 0;
 }
 
-/* View toggle */
+/* View toggle & Sort */
 .view-toggle {
   display: flex;
   gap: 0;
@@ -188,6 +203,26 @@ body {
   transition: all 0.2s;
 }
 .view-btn.active { background: var(--moon); color: var(--white); }
+
+.sort-toggle {
+  display: flex;
+  gap: 0;
+  background: var(--cream);
+  border: 1.5px solid var(--latte);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.sort-btn {
+  padding: 5px 9px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.sort-btn.active { background: var(--moon); color: var(--white); }
 
 /* ── MAIN CONTENT ── */
 .main {
@@ -403,16 +438,11 @@ body {
   border-radius: 24px 24px 0 0;
   width: 100%;
   max-width: 540px;
-  max-height: 92vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
-  scrollbar-width: none;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
+  animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
 }
-.modal::-webkit-scrollbar { display: none; }
 
 .modal.small-modal {
   border-radius: 20px;
@@ -430,7 +460,7 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
-/* ── 修正：modal-header 固定在頂部 ── */
+/* ── 修正:modal-header 固定在頂部 ── */
 .modal-header {
   display: flex;
   align-items: center;
@@ -440,8 +470,6 @@ body {
   background: var(--white);
   z-index: 1;
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
 }
 .modal-title {
   font-family: 'Noto Serif TC', serif;
@@ -587,7 +615,7 @@ body {
   justify-content: center;
 }
 
-/* ── 修正：btn-row 固定在底部可見 ── */
+/* ── 修正:btn-row 固定在底部可見 ── */
 .btn-row {
   display: flex;
   gap: 10px;
@@ -738,8 +766,23 @@ body {
   border-radius: 10px;
   margin-bottom: 6px;
 }
-.cat-edit-emoji { font-size: 1.3rem; cursor: pointer; min-width: 32px; text-align: center; }
-.cat-edit-name { flex: 1; font-size: 0.88rem; color: var(--text); }
+.cat-edit-emoji { 
+  font-size: 1.3rem; 
+  min-width: 32px; 
+  text-align: center;
+}
+.cat-edit-name-input {
+  flex: 1;
+  background: var(--white);
+  border: 1px solid var(--latte);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  outline: none;
+}
+.cat-edit-name-input:focus { border-color: var(--moon); }
 .cat-edit-del {
   background: none;
   border: none;
@@ -920,7 +963,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       <label class="form-label">家庭代號</label>
       <input id="loginCode" class="form-input" type="text" placeholder="請輸入家庭代號" autocomplete="off" style="text-align:center; font-size:1rem; letter-spacing:0.1em;">
     </div>
-    <button class="btn btn-primary" onclick="doLogin()">進入小百科 ✨</button>
+    <button class="btn btn-primary" onclick="doLogin()">進入小百科</button>
   </div>
 </div>
 
@@ -937,6 +980,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <div class="app-subtitle">嘟嘟一家 · 知識寶庫</div>
       </div>
       <div class="header-actions">
+        <a href="https://yui0151.github.io/secretary/" class="home-btn" onclick="saveBeforeLeave(event, this.href)">🏠 首頁</a>
         <button class="icon-btn" onclick="openSettings()" title="設定">⚙️</button>
         <button class="icon-btn" onclick="openIo()" title="匯出/匯入">📦</button>
       </div>
@@ -957,6 +1001,12 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       <button class="view-btn" id="btnList" onclick="setView('list')">☰</button>
     </div>
     <div class="filter-divider"></div>
+    <div class="sort-toggle">
+      <button class="sort-btn active" data-sort="time" onclick="setSort('time')">⏰</button>
+      <button class="sort-btn" data-sort="alpha" onclick="setSort('alpha')">A-Z</button>
+      <button class="sort-btn" data-sort="due" onclick="setSort('due')">📅</button>
+    </div>
+    <div class="filter-divider"></div>
     <button class="filter-chip active" data-cat="all" onclick="setCatFilter('all')">全部</button>
   </div>
 
@@ -969,7 +1019,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 
   <!-- FAB -->
 
-<button class="fab" onclick="openAddModal()">＋</button>
+  <button class="fab" onclick="openAddModal()">＋</button>
 
   <!-- Room badge -->
 
@@ -986,18 +1036,18 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <div class="overlay" id="addOverlay" onclick="closeOverlay(this,'addModal')">
   <div class="modal" id="addModal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <div class="modal-title" id="addModalTitle">📝 新增收藏</div>
+      <div class="modal-title" id="addModalTitle">新增收藏</div>
       <button class="modal-close" onclick="closeAddModal()">✕</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
         <label class="form-label">標題 <span class="req">*</span></label>
-        <input id="fTitle" class="form-input" type="text" placeholder="例：花蓮太魯閣一日遊">
+        <input id="fTitle" class="form-input" type="text" placeholder="例:花蓮太魯閣一日遊">
       </div>
       <div class="form-group">
-        <label class="form-label">標籤 <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">（用 # 分隔，例：#寶寶 #推薦）</span></label>
+        <label class="form-label">標籤 <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">(用 # 分隔,例:#寶寶 #推薦)</span></label>
         <input id="fTags" class="form-input" type="text" placeholder="#育兒 #推薦 #待看">
-        <div class="form-hint">輸入 # 開頭的標籤，方便之後搜尋</div>
+        <div class="form-hint">輸入 # 開頭的標籤,方便之後搜尋</div>
       </div>
       <div class="form-group">
         <label class="form-label">分類</label>
@@ -1005,7 +1055,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       </div>
       <div class="form-group">
         <label class="form-label">網址連結</label>
-        <input id="fUrl" class="form-input" type="url" placeholder="https://..." oninput="onUrlInput()" onblur="fetchUrlPreview()">
+        <input id="fUrl" class="form-input" type="url" placeholder="https://..." oninput="onUrlInput()">
         <div class="url-preview" id="urlPreview">
           <div class="url-preview-icon" id="urlPreviewIcon">🔗</div>
           <div class="url-preview-info">
@@ -1035,7 +1085,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       </div>
       <div class="btn-row">
         <button class="btn btn-secondary" onclick="closeAddModal()">取消</button>
-        <button class="btn btn-primary" onclick="saveEntry()">💾 儲存</button>
+        <button class="btn btn-primary" onclick="saveEntry()">儲存</button>
       </div>
     </div>
   </div>
@@ -1051,13 +1101,13 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       <div class="detail-tags" id="detailTags"></div>
       <div class="detail-title" id="detailTitle"></div>
       <div class="detail-note" id="detailNote"></div>
-      <a id="detailUrlBtn" class="detail-url-btn" target="_blank" rel="noopener" style="display:none">
+      <a id="detailUrlBtn" class="detail-url-btn" rel="noopener" style="display:none" onclick="openUrlSafely(event, this.href)">
         🔗 <span id="detailUrlText"></span>
       </a>
       <div class="detail-meta" id="detailMeta"></div>
       <div class="detail-actions">
-        <button class="btn btn-secondary" onclick="editEntry()">✏️ 編輯</button>
-        <button class="btn btn-danger" onclick="confirmDelete()">🗑 刪除</button>
+        <button class="btn btn-secondary" onclick="editEntry()">編輯</button>
+        <button class="btn btn-danger" onclick="confirmDelete()">刪除</button>
         <button class="btn btn-secondary" onclick="closeDetailModal()" style="flex:0.5">✕</button>
       </div>
     </div>
@@ -1070,8 +1120,8 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   <div class="modal small-modal" onclick="event.stopPropagation()">
     <div class="confirm-body">
       <div class="confirm-icon">🗑️</div>
-      <div class="confirm-title">確定要刪除嗎？</div>
-      <div class="confirm-msg" id="confirmMsg">這筆收藏將會永久刪除，無法復原。</div>
+      <div class="confirm-title">確定要刪除嗎?</div>
+      <div class="confirm-msg" id="confirmMsg">這筆收藏將會永久刪除,無法復原。</div>
       <div class="btn-row" style="position:static;">
         <button class="btn btn-secondary" onclick="closeConfirm()">取消</button>
         <button class="btn btn-danger" onclick="doDelete()">確定刪除</button>
@@ -1085,7 +1135,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <div class="overlay" id="settingsOverlay" onclick="closeOverlay(this,'settingsModal')">
   <div class="modal" id="settingsModal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <div class="modal-title">⚙️ 設定</div>
+      <div class="modal-title">設定</div>
       <button class="modal-close" onclick="closeSettings()">✕</button>
     </div>
     <div class="modal-body">
@@ -1093,7 +1143,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <div class="settings-title">🏠 家庭代號</div>
         <div class="setting-item" onclick="changeRoom()">
           <span class="setting-label" id="settingRoom">-</span>
-          <span class="setting-arrow">→ 更換</span>
+          <span class="setting-arrow">更換</span>
         </div>
       </div>
       <div class="settings-section">
@@ -1118,7 +1168,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 <div class="overlay" id="ioOverlay" onclick="closeOverlay(this,'ioModal')">
   <div class="modal" id="ioModal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <div class="modal-title">📦 匯出 / 匯入</div>
+      <div class="modal-title">匯出 / 匯入</div>
       <button class="modal-close" onclick="closeIo()">✕</button>
     </div>
     <div class="modal-body">
@@ -1140,7 +1190,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <span class="io-btn-icon">📥</span>
         <div class="io-btn-text">
           <div class="io-label">匯入 JSON 還原</div>
-          <div class="io-sub">從備份檔案還原（會合併資料）</div>
+          <div class="io-sub">從備份檔案還原(會合併資料)</div>
         </div>
       </button>
       <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
@@ -1154,7 +1204,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
 import { 
   getFirestore, collection, doc, setDoc, deleteDoc,
-  onSnapshot, serverTimestamp, query, orderBy
+  onSnapshot, serverTimestamp, query, orderBy, getDocs, writeBatch
 } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -1170,6 +1220,7 @@ let entries = [];
 let categories = [];
 let currentView = 'grid';
 let currentCat = 'all';
+let currentSort = 'time';
 let searchQ = '';
 let editingId = null;
 let deletingId = null;
@@ -1185,8 +1236,12 @@ const DEFAULT_CATS = [
   { id: 'manuals',   emoji: '📋', name: '說明書' },
   { id: 'recipes',   emoji: '🍳', name: '食譜料理' },
   { id: 'shopping',  emoji: '🛍', name: '好物推薦' },
+  { id: 'craft',     emoji: '🧵', name: '手作靈感' },
+  { id: 'health',    emoji: '🥗', name: '飲食健康' },
+  { id: 'uncategorized', emoji: '📁', name: '未分類' },
 ];
 
+// 全域函數
 window.doLogin = doLogin;
 window.openAddModal = openAddModal;
 window.closeAddModal = closeAddModal;
@@ -1194,6 +1249,7 @@ window.closeOverlay = closeOverlay;
 window.onSearch = onSearch;
 window.setCatFilter = setCatFilter;
 window.setView = setView;
+window.setSort = setSort;
 window.saveEntry = saveEntry;
 window.editEntry = editEntry;
 window.confirmDelete = confirmDelete;
@@ -1213,7 +1269,29 @@ window.removeImg = removeImg;
 window.onImgFile = onImgFile;
 window.onImgUrlInput = onImgUrlInput;
 window.onUrlInput = onUrlInput;
-window.fetchUrlPreview = fetchUrlPreview;
+window.openUrlSafely = openUrlSafely;
+window.saveBeforeLeave = saveBeforeLeave;
+
+// 離開前保存
+function saveBeforeLeave(event, targetUrl) {
+  event.preventDefault();
+  // 確保所有待處理的資料都已保存
+  if (unsubEntries) {
+    showToast('正在保存...');
+    setTimeout(() => {
+      window.location.href = targetUrl;
+    }, 500);
+  } else {
+    window.location.href = targetUrl;
+  }
+}
+
+// 安全開啟URL - 同視窗跳轉
+function openUrlSafely(event, url) {
+  if (event) event.preventDefault();
+  if (!url) return;
+  saveBeforeLeave(event, url);
+}
 
 function init() {
   const params = new URLSearchParams(location.search);
@@ -1315,24 +1393,40 @@ function renderCatEditList() {
     const div = document.createElement('div');
     div.className = 'cat-edit-item';
     div.innerHTML = `
-      <span class="cat-edit-emoji" title="點擊更換Emoji" onclick="promptCatEmoji(${i})">${cat.emoji}</span>
-      <span class="cat-edit-name">${cat.name}</span>
+      <span class="cat-edit-emoji">${cat.emoji}</span>
+      <input type="text" class="cat-edit-name-input" value="${cat.name}" onchange="updateCategoryName(${i}, this.value)" />
       <button class="cat-edit-del" onclick="deleteCategory(${i})" title="刪除">🗑</button>
     `;
     list.appendChild(div);
   });
 }
-window.promptCatEmoji = function(i) {
-  const e = prompt('輸入新 Emoji：', categories[i].emoji);
-  if (e && e.trim()) {
-    categories[i].emoji = e.trim();
-    saveMeta();
+
+window.updateCategoryName = async function(i, newName) {
+  if (!newName || !newName.trim()) {
+    showToast('分類名稱不能為空');
     renderCatEditList();
-    renderFilterChips();
+    return;
   }
+  const oldName = categories[i].name;
+  categories[i].name = newName.trim();
+  
+  // 更新所有使用此分類的項目
+  const batch = writeBatch(db);
+  entries.forEach(e => {
+    if (e.cat === categories[i].id) {
+      const ref = doc(db, `vault_v1/${roomCode}/entries`, e.id);
+      batch.update(ref, { catName: categories[i].name });
+    }
+  });
+  await batch.commit();
+  await saveMeta();
+  
+  showToast(`已更新分類: ${oldName} → ${newName}`);
+  renderFilterChips();
 };
+
 window.deleteCategory = async function(i) {
-  if (!confirm(`確定刪除「${categories[i].name}」分類？`)) return;
+  if (!confirm(`確定刪除「${categories[i].name}」分類?`)) return;
   categories.splice(i, 1);
   await saveMeta();
   renderCatEditList();
@@ -1351,6 +1445,19 @@ function getFiltered() {
       (e.tags || '').toLowerCase().includes(q)
     );
   }
+  
+  // 排序
+  if (currentSort === 'alpha') {
+    list.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+  } else if (currentSort === 'due') {
+    list.sort((a, b) => {
+      const dateA = a.dueDate || '9999-12-31';
+      const dateB = b.dueDate || '9999-12-31';
+      return dateA.localeCompare(dateB);
+    });
+  }
+  // time 排序已由 Firestore orderBy 處理
+  
   return list;
 }
 
@@ -1374,6 +1481,14 @@ function setView(v) {
   renderCards();
 }
 
+function setSort(s) {
+  currentSort = s;
+  document.querySelectorAll('.sort-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-sort') === s);
+  });
+  renderCards();
+}
+
 function renderStats() {
   const sb = document.getElementById('statsBar');
   sb.innerHTML = `
@@ -1387,8 +1502,8 @@ function renderStats() {
   if (sd) {
     sd.innerHTML = categories.map(c => {
       const cnt = entries.filter(e => e.cat === c.id).length;
-      return `${c.emoji} ${c.name}：<strong style="color:var(--moon2)">${cnt}</strong> 筆<br>`;
-    }).join('') + `<br>總計：<strong style="color:var(--moon2)">${entries.length}</strong> 筆`;
+      return `${c.emoji} ${c.name}:<strong style="color:var(--moon2)">${cnt}</strong> 筆<br>`;
+    }).join('') + `<br>總計:<strong style="color:var(--moon2)">${entries.length}</strong> 筆`;
   }
 }
 
@@ -1401,12 +1516,12 @@ function renderCards() {
       <div class="empty-state">
         <div class="empty-icon">📖</div>
         <div class="empty-title">還沒有任何收藏</div>
-        <div class="empty-sub">點下方 ＋ 按鈕開始新增吧！</div>
+        <div class="empty-sub">點下方 ＋ 按鈕開始新增吧!</div>
       </div>`;
     return;
   }
   if (list.length === 0) {
-    container.innerHTML = `<div class="no-results">😕 找不到符合的收藏</div>`;
+    container.innerHTML = `<div class="no-results">找不到符合的收藏</div>`;
     return;
   }
 
@@ -1465,6 +1580,19 @@ function tryGetDomain(url) {
   try { return new URL(url).hostname.replace('www.', ''); } catch { return ''; }
 }
 
+async function fetchOgImage(url) {
+  try {
+    const response = await fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    if (data.status === 'success' && data.data.image) {
+      return data.data.image.url;
+    }
+  } catch (err) {
+    console.log('無法獲取 og:image', err);
+  }
+  return null;
+}
+
 function openAddModal(idToEdit = null) {
   editingId = idToEdit;
   imgBase64 = null;
@@ -1481,7 +1609,7 @@ function openAddModal(idToEdit = null) {
   if (idToEdit) {
     const e = entries.find(x => x.id === idToEdit);
     if (e) {
-      document.getElementById('addModalTitle').textContent = '✏️ 編輯收藏';
+      document.getElementById('addModalTitle').textContent = '編輯收藏';
       document.getElementById('fTitle').value = e.title || '';
       document.getElementById('fTags').value = e.tags || '';
       document.getElementById('fUrl').value = e.url || '';
@@ -1494,16 +1622,22 @@ function openAddModal(idToEdit = null) {
         document.getElementById('fImgUrl').value = e.imgUrl;
         showImgPreview(e.imgUrl);
       }
-      if (e.url) { setTimeout(fetchUrlPreview, 100); }
+      if (e.url) { 
+        setTimeout(() => {
+          const domain = tryGetDomain(e.url);
+          document.getElementById('urlPreviewTitle').textContent = domain;
+          document.getElementById('urlPreviewDomain').textContent = e.url.length > 50 ? e.url.substring(0,50)+'…' : e.url;
+          document.getElementById('urlPreviewIcon').textContent = '🔗';
+          document.getElementById('urlPreview').classList.add('visible');
+        }, 100);
+      }
     }
   } else {
-    document.getElementById('addModalTitle').textContent = '📝 新增收藏';
+    document.getElementById('addModalTitle').textContent = '新增收藏';
   }
 
   renderCatGrid();
   document.getElementById('addOverlay').classList.add('active');
-  // 確保 modal 滾動到頂部
-  document.getElementById('addModal').scrollTop = 0;
   setTimeout(() => document.getElementById('fTitle').focus(), 200);
 }
 
@@ -1520,19 +1654,17 @@ function closeOverlay(overlay, modalId) {
 
 function onUrlInput() {
   const url = document.getElementById('fUrl').value.trim();
-  if (!url) document.getElementById('urlPreview').classList.remove('visible');
-}
-
-function fetchUrlPreview() {
-  const url = document.getElementById('fUrl').value.trim();
-  if (!url) return;
-  try {
-    const domain = new URL(url).hostname.replace('www.', '');
-    document.getElementById('urlPreviewTitle').textContent = domain;
-    document.getElementById('urlPreviewDomain').textContent = url.length > 50 ? url.substring(0,50)+'…' : url;
-    document.getElementById('urlPreviewIcon').textContent = '🔗';
-    document.getElementById('urlPreview').classList.add('visible');
-  } catch {}
+  if (!url) {
+    document.getElementById('urlPreview').classList.remove('visible');
+  } else {
+    try {
+      const domain = new URL(url).hostname.replace('www.', '');
+      document.getElementById('urlPreviewTitle').textContent = domain;
+      document.getElementById('urlPreviewDomain').textContent = url.length > 50 ? url.substring(0,50)+'…' : url;
+      document.getElementById('urlPreviewIcon').textContent = '🔗';
+      document.getElementById('urlPreview').classList.add('visible');
+    } catch {}
+  }
 }
 
 function onImgFile(event) {
@@ -1572,28 +1704,38 @@ async function saveEntry() {
   const imgUrl = document.getElementById('fImgUrl').value.trim();
   const rawTags = document.getElementById('fTags').value.trim();
   const tags = rawTags ? rawTags.split(/[\s,，]+/).filter(Boolean).map(t => t.startsWith('#') ? t : '#'+t).join(' ') : '';
+  const url = document.getElementById('fUrl').value.trim() || null;
+
+  let finalImgData = imgBase64;
+  let finalImgUrl = !imgBase64 ? imgUrl || null : null;
+  
+  // 如果沒有手動上傳圖片且有URL,嘗試獲取 og:image
+  if (!finalImgData && !finalImgUrl && url) {
+    const ogImg = await fetchOgImage(url);
+    if (ogImg) finalImgUrl = ogImg;
+  }
 
   const data = {
     title,
     tags,
     cat: selectedCatId || null,
-    url: document.getElementById('fUrl').value.trim() || null,
+    url,
     note: document.getElementById('fNote').value.trim() || null,
-    imgData: imgBase64 || null,
-    imgUrl: !imgBase64 ? (imgUrl || null) : null,
+    imgData: finalImgData,
+    imgUrl: finalImgUrl,
     updatedAt: serverTimestamp(),
   };
 
   if (editingId) {
     const ref = doc(db, `vault_v1/${roomCode}/entries`, editingId);
     await setDoc(ref, data, { merge: true });
-    showToast('✅ 已更新');
+    showToast('已更新');
   } else {
     data.createdAt = serverTimestamp();
     const id = 'e_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
     const ref = doc(db, `vault_v1/${roomCode}/entries`, id);
     await setDoc(ref, data);
-    showToast('✅ 已新增');
+    showToast('已新增');
   }
   closeAddModal();
 }
@@ -1673,7 +1815,7 @@ async function doDelete() {
   await deleteDoc(ref);
   closeConfirm();
   closeDetailModal();
-  showToast('🗑 已刪除');
+  showToast('已刪除');
   deletingId = null;
 }
 
@@ -1689,7 +1831,7 @@ function closeSettings() {
 }
 
 function changeRoom() {
-  const newCode = prompt('輸入新的家庭代號：', roomCode);
+  const newCode = prompt('輸入新的家庭代號:', roomCode);
   if (newCode && newCode.trim()) {
     startApp(newCode.trim().toLowerCase());
     closeSettings();
@@ -1707,7 +1849,7 @@ async function addCategory() {
   document.getElementById('newCatName').value = '';
   renderCatEditList();
   renderFilterChips();
-  showToast('✅ 分類已新增');
+  showToast('分類已新增');
 }
 
 function openIo() { document.getElementById('ioOverlay').classList.add('active'); }
@@ -1725,7 +1867,7 @@ function exportJson() {
     })),
   };
   download('MY小百科_備份_' + todayStr() + '.json', JSON.stringify(data, null, 2), 'application/json');
-  showToast('📤 JSON 已匯出');
+  showToast('JSON 已匯出');
 }
 
 function exportCsv() {
@@ -1737,7 +1879,7 @@ function exportCsv() {
   });
   const csv = [header, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
   download('MY小百科_' + todayStr() + '.csv', '\uFEFF' + csv, 'text/csv');
-  showToast('📊 CSV 已匯出');
+  showToast('CSV 已匯出');
 }
 
 async function importJson(event) {
@@ -1746,7 +1888,7 @@ async function importJson(event) {
   try {
     const text = await file.text();
     const data = JSON.parse(text);
-    if (!data.entries) { showToast('❌ 格式不正確'); return; }
+    if (!data.entries) { showToast('格式不正確'); return; }
     let count = 0;
     for (const e of data.entries) {
       const { createdAt, updatedAt, id, ...rest } = e;
@@ -1755,10 +1897,10 @@ async function importJson(event) {
       await setDoc(ref, { ...rest, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }, { merge: true });
       count++;
     }
-    showToast(`✅ 匯入 ${count} 筆`);
+    showToast(`匯入 ${count} 筆`);
     closeIo();
   } catch (err) {
-    showToast('❌ 匯入失敗：' + err.message);
+    showToast('匯入失敗:' + err.message);
   }
   event.target.value = '';
 }
@@ -1784,6 +1926,14 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 2600);
 }
 window.showToast = showToast;
+
+// 防止意外離開時數據丟失
+window.addEventListener('beforeunload', (e) => {
+  if (editingId) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
 
 init();
 </script>
