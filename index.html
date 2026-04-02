@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -7,486 +6,245 @@
 <title>📖 M.Y 小百科</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
 :root {
-  --milk: #fdf8f3;
-  --cream: #f5ece0;
-  --latte: #e8d5bc;
-  --moon: #c9a97a;
-  --moon2: #a07848;
-  --moon-light: #fdf0dc;
-  --moon-soft: #f7e8c8;
-  --brown: #8b6343;
-  --deep: #5c3d1e;
-  --text: #3d2b1a;
-  --muted: #a08060;
-  --white: #fffefb;
-  --shadow: rgba(139,99,67,0.12);
-  --shadow-md: rgba(139,99,67,0.18);
-  --radius: 16px;
-  --radius-sm: 10px;
+  --milk: #fdf8f3; --cream: #f5ece0; --latte: #e8d5bc;
+  --moon: #c9a97a; --moon2: #a07848; --moon-light: #fdf0dc; --moon-soft: #f7e8c8;
+  --brown: #8b6343; --deep: #5c3d1e; --text: #3d2b1a; --muted: #a08060;
+  --white: #fffefb; --shadow: rgba(139,99,67,0.12); --shadow-md: rgba(139,99,67,0.18);
+  --radius: 16px; --radius-sm: 10px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
 body {
-  background: var(--milk);
-  color: var(--text);
+  background: var(--milk); color: var(--text);
   font-family: 'Zen Kaku Gothic New', sans-serif;
   min-height: 100vh;
-  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  /* [FIX] 底部預留空間：tab bar(68px) + 額外緩衝 */
+  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
 }
 
-.app-header {
-  background: var(--white);
-  border-bottom: 1.5px solid var(--latte);
-  padding: 16px 16px 12px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 12px var(--shadow);
-}
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-.app-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--deep);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+/* ── HEADER ── */
+.app-header { background: var(--white); border-bottom: 1.5px solid var(--latte); padding: 16px 16px 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px var(--shadow); }
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.app-title { font-family: 'Noto Serif TC', serif; font-size: 1.25rem; font-weight: 700; color: var(--deep); display: flex; align-items: center; gap: 8px; }
 .app-title .emoji { font-size: 1.4rem; }
-.app-subtitle {
-  font-size: 0.72rem;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  margin-top: 1px;
-}
-.header-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.icon-btn {
-  background: var(--cream);
-  border: 1px solid var(--latte);
-  border-radius: 10px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--brown);
-  font-size: 1rem;
-  transition: background 0.2s;
-}
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.icon-btn { background: var(--cream); border: 1px solid var(--latte); border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--brown); font-size: 1rem; transition: background 0.2s; }
 .icon-btn:hover { background: var(--moon-soft); }
-
 .search-bar { display: flex; gap: 8px; }
-.search-input {
-  flex: 1;
-  background: var(--cream);
-  border: 1.5px solid var(--latte);
-  border-radius: 12px;
-  padding: 9px 14px 9px 36px;
-  color: var(--text);
-  font-family: 'Zen Kaku Gothic New', sans-serif;
-  font-size: 0.88rem;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-}
+.search-input { flex: 1; background: var(--cream); border: 1.5px solid var(--latte); border-radius: 12px; padding: 9px 36px 9px 36px; color: var(--text); font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s, background 0.2s; }
 .search-input::placeholder { color: var(--muted); opacity: 0.6; }
 .search-input:focus { border-color: var(--moon); background: var(--white); }
 .search-wrap { position: relative; flex: 1; }
-.search-icon {
-  position: absolute;
-  left: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  font-size: 0.9rem;
-  pointer-events: none;
+.search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; pointer-events: none; }
+/* [FIX #1] 搜尋清空按鈕 */
+.search-clear {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: var(--latte); border: none; border-radius: 50%;
+  width: 18px; height: 18px; display: none; align-items: center; justify-content: center;
+  font-size: 0.6rem; color: var(--brown); cursor: pointer; line-height: 1;
 }
+.search-clear.visible { display: flex; }
 
-.filter-bar {
-  background: var(--white);
-  border-bottom: 1px solid var(--latte);
-  padding: 10px 12px;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  align-items: center;
-}
+/* ── FILTER BAR ── */
+.filter-bar { background: var(--white); border-bottom: 1px solid var(--latte); padding: 10px 12px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; align-items: center; }
 .filter-bar::-webkit-scrollbar { display: none; }
-.filter-chip {
-  background: var(--cream);
-  border: 1.5px solid var(--latte);
-  border-radius: 20px;
-  padding: 5px 13px;
-  font-size: 0.8rem;
-  font-family: 'Zen Kaku Gothic New', sans-serif;
-  color: var(--brown);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
+.filter-chip { background: var(--cream); border: 1.5px solid var(--latte); border-radius: 20px; padding: 5px 13px; font-size: 0.8rem; font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--brown); cursor: pointer; white-space: nowrap; transition: all 0.2s; flex-shrink: 0; }
 .filter-chip.active { background: var(--moon); border-color: var(--moon); color: var(--white); font-weight: 500; }
 .filter-chip:hover:not(.active) { background: var(--moon-soft); border-color: var(--moon); }
 .filter-divider { width: 1px; height: 20px; background: var(--latte); flex-shrink: 0; }
-
-.view-toggle {
-  display: flex;
-  background: var(--cream);
-  border: 1.5px solid var(--latte);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-left: auto;
-  flex-shrink: 0;
-}
+.view-toggle { display: flex; gap: 0; background: var(--cream); border: 1.5px solid var(--latte); border-radius: 8px; overflow: hidden; margin-left: auto; flex-shrink: 0; }
 .view-btn { padding: 5px 10px; font-size: 0.85rem; cursor: pointer; background: transparent; border: none; color: var(--muted); transition: all 0.2s; }
 .view-btn.active { background: var(--moon); color: var(--white); }
 
+/* ── MAIN ── */
 .main { padding: 14px 12px; }
-
 .stats-bar { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
 .stats-bar::-webkit-scrollbar { display: none; }
-.stat-pill {
-  background: var(--white);
-  border: 1px solid var(--latte);
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 0.78rem;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
+.stat-pill { background: var(--white); border: 1px solid var(--latte); border-radius: 20px; padding: 5px 12px; font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 5px; white-space: nowrap; flex-shrink: 0; }
 .stat-pill strong { color: var(--moon2); }
 
+/* ── CARDS ── */
 .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .cards-list { display: flex; flex-direction: column; gap: 8px; }
-
-.card {
-  background: var(--white);
-  border: 1px solid var(--latte);
-  border-radius: var(--radius);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s;
-  position: relative;
-}
+.card { background: var(--white); border: 1px solid var(--latte); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.18s, box-shadow 0.18s; position: relative; }
 .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow-md); }
 .card:active { transform: scale(0.98); }
-
-.card-grid .card-thumb {
-  width: 100%;
-  aspect-ratio: 4/3;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.2rem;
-  position: relative;
-  overflow: hidden;
-}
+.card-grid .card-thumb { width: 100%; aspect-ratio: 4/3; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; position: relative; overflow: hidden; }
 .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .card-thumb .thumb-placeholder { font-size: 2.5rem; opacity: 0.5; }
 .card-body { padding: 10px; }
 .card-cat { font-size: 0.7rem; color: var(--moon2); font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 3px; }
-.card-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.4;
-  margin-bottom: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card-note {
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.45;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card-url-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 0.68rem;
-  color: var(--moon2);
-  background: var(--moon-light);
-  border-radius: 6px;
-  padding: 2px 6px;
-  margin-top: 5px;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
+.card-title { font-family: 'Noto Serif TC', serif; font-size: 0.88rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-note { font-size: 0.75rem; color: var(--muted); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-url-chip { display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; color: var(--moon2); background: var(--moon-light); border-radius: 6px; padding: 2px 6px; margin-top: 5px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .card-list { display: flex; gap: 12px; padding: 12px; align-items: flex-start; }
-.card-list .card-thumb-sm {
-  width: 58px; height: 58px; min-width: 58px;
-  border-radius: 10px;
-  background: var(--cream);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+.card-list .card-thumb-sm { width: 58px; height: 58px; min-width: 58px; border-radius: 10px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; overflow: hidden; flex-shrink: 0; }
 .card-list .card-thumb-sm img { width: 100%; height: 100%; object-fit: cover; }
 .card-list .card-info { flex: 1; min-width: 0; }
 .card-list .card-title { font-size: 0.9rem; -webkit-line-clamp: 1; }
 .card-list .card-note { -webkit-line-clamp: 1; }
 .card-date { font-size: 0.68rem; color: var(--muted); margin-top: 4px; }
-
 .empty-state { text-align: center; padding: 48px 24px; }
 .empty-icon { font-size: 3.5rem; margin-bottom: 12px; opacity: 0.5; }
 .empty-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--muted); margin-bottom: 6px; }
 .empty-sub { font-size: 0.82rem; color: var(--muted); opacity: 0.7; }
 
+/* [FIX #2] 搜尋無結果：垂直水平置中 */
+.no-results-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 200px; text-align: center;
+  color: var(--muted); font-size: 0.88rem; padding: 24px;
+}
+.no-results-wrap .nr-icon { font-size: 2.8rem; margin-bottom: 10px; opacity: 0.45; }
+
+mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; padding: 0 2px; }
+
+/* ── FAB ── */
+/* [FIX] FAB 在 tab bar 上方 */
 .fab {
   position: fixed;
-  bottom: 24px;
-  right: 20px;
-  width: 54px; height: 54px;
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  right: 20px; width: 54px; height: 54px;
   background: linear-gradient(135deg, var(--moon) 0%, var(--moon2) 100%);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
-  cursor: pointer;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; cursor: pointer;
   box-shadow: 0 4px 20px rgba(169,120,72,0.45);
   transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
-  color: white;
-  z-index: 200;
+  border: none; color: white; z-index: 200;
 }
 .fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(169,120,72,0.55); }
 .fab:active { transform: scale(0.96); }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(61,43,26,0.45);
-  z-index: 300;
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  overscroll-behavior: contain;
-}
+/* ── MODALS ── */
+.overlay { position: fixed; inset: 0; background: rgba(61,43,26,0.45); z-index: 300; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); overscroll-behavior: contain; }
 .overlay.active { display: flex; }
 .overlay.center-modal { align-items: center; }
 
+/* [FIX #2] modal 設定 max-height，讓內容可捲動，按鈕不被遮擋 */
 .modal {
   background: var(--white);
   border-radius: 24px 24px 0 0;
-  width: 100%;
-  max-width: 540px;
-  max-height: 92vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  width: 100%; max-width: 540px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex; flex-direction: column;
   animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
-  scrollbar-width: none;
-  display: flex;
-  flex-direction: column;
 }
-.modal::-webkit-scrollbar { display: none; }
-.modal.small-modal {
-  border-radius: 20px;
-  max-width: 360px;
-  animation: popIn 0.22s cubic-bezier(0.34,1.56,0.64,1);
-  margin: 16px;
-}
-
+.modal.small-modal { border-radius: 20px; max-width: 360px; animation: popIn 0.22s cubic-bezier(0.34,1.56,0.64,1); margin: 16px; max-height: 85vh; }
 @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 18px 12px;
-  border-bottom: 1px solid var(--latte);
-  background: var(--white);
-  z-index: 1;
-  flex-shrink: 0;
-  position: sticky;
-  top: 0;
-}
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 12px; border-bottom: 1px solid var(--latte); background: var(--white); z-index: 1; flex-shrink: 0; }
 .modal-title { font-family: 'Noto Serif TC', serif; font-size: 1.05rem; font-weight: 700; color: var(--deep); }
-.modal-close {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: var(--cream);
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted);
-}
+.modal-close { width: 30px; height: 30px; border-radius: 50%; background: var(--cream); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; color: var(--muted); }
 .modal-close:hover { background: var(--latte); }
-.modal-body { padding: 16px 18px 24px; flex: 1; overflow-y: auto; overflow-x: hidden; }
 
+/* [FIX #2] modal-body 可獨立捲動 */
+.modal-body {
+  padding: 16px 18px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* ── FORM ── */
 .form-group { margin-bottom: 14px; }
 .form-label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--brown); margin-bottom: 5px; }
 .form-label .req { color: var(--moon2); }
-.form-input, .form-select, .form-textarea {
-  width: 100%;
-  background: var(--cream);
-  border: 1.5px solid var(--latte);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  font-family: 'Zen Kaku Gothic New', sans-serif;
-  font-size: 0.88rem;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.2s;
-}
+.form-input, .form-select, .form-textarea { width: 100%; background: var(--cream); border: 1.5px solid var(--latte); border-radius: var(--radius-sm); padding: 10px 12px; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.88rem; color: var(--text); outline: none; transition: border-color 0.2s; }
 .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--moon); background: var(--milk); }
 .form-textarea { resize: vertical; min-height: 90px; }
 .form-hint { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
-
-.url-preview {
-  border: 1.5px dashed var(--latte);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  margin-top: 6px;
-  display: none;
-  align-items: center;
-  gap: 10px;
-  background: var(--moon-light);
-}
+.url-preview { border: 1.5px dashed var(--latte); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 6px; display: none; align-items: center; gap: 10px; background: var(--moon-light); }
 .url-preview.visible { display: flex; }
 .url-preview-icon { font-size: 1.5rem; flex-shrink: 0; }
 .url-preview-info { flex: 1; min-width: 0; }
 .url-preview-title { font-size: 0.82rem; font-weight: 500; color: var(--text); }
 .url-preview-domain { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-
 .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
-.cat-option {
-  border: 1.5px solid var(--latte);
-  border-radius: 10px;
-  padding: 8px 6px;
-  text-align: center;
-  cursor: pointer;
-  background: var(--cream);
-  transition: all 0.18s;
-}
+.cat-option { border: 1.5px solid var(--latte); border-radius: 10px; padding: 8px 6px; text-align: center; cursor: pointer; background: var(--cream); transition: all 0.18s; }
 .cat-option.selected { border-color: var(--moon); background: var(--moon-light); }
 .cat-option:hover:not(.selected) { border-color: var(--moon); background: var(--moon-soft); }
 .cat-emoji { font-size: 1.3rem; display: block; }
 .cat-name { font-size: 0.7rem; color: var(--brown); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cat-option.selected .cat-name { color: var(--moon2); font-weight: 500; }
-
-.img-upload-area {
-  border: 2px dashed var(--latte);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--cream);
-}
+.img-upload-area { border: 2px dashed var(--latte); border-radius: var(--radius-sm); padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--cream); }
 .img-upload-area:hover { border-color: var(--moon); background: var(--moon-soft); }
 .img-upload-area .upload-icon { font-size: 2rem; opacity: 0.5; margin-bottom: 6px; }
 .img-upload-area p { font-size: 0.78rem; color: var(--muted); }
 .img-preview-wrap { position: relative; display: inline-block; }
 .img-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 8px; display: block; }
-.img-remove {
-  position: absolute; top: 6px; right: 6px;
-  width: 24px; height: 24px;
-  background: rgba(92,61,30,0.7);
-  border-radius: 50%; border: none; color: white;
-  font-size: 0.85rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
+.img-remove { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; background: rgba(92,61,30,0.7); border-radius: 50%; border: none; color: white; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
+/* [FIX #2] btn-row: sticky 在 modal 底部，並加 safe-area padding */
 .btn-row {
   display: flex; gap: 10px;
-  margin-top: 18px; padding: 14px 0 6px;
+  padding: 12px 0 max(12px, env(safe-area-inset-bottom, 12px));
+  margin-top: 16px;
   position: sticky; bottom: 0;
   background: var(--white); z-index: 2;
+  border-top: 1px solid var(--latte);
+  flex-shrink: 0;
 }
-.btn {
-  flex: 1; padding: 12px; border-radius: 12px; border: none;
-  font-family: 'Zen Kaku Gothic New', sans-serif;
-  font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
-}
+.btn { flex: 1; padding: 12px; border-radius: 12px; border: none; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
 .btn-primary { background: linear-gradient(135deg, var(--moon) 0%, var(--moon2) 100%); color: white; box-shadow: 0 3px 10px rgba(169,120,72,0.35); }
 .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(169,120,72,0.4); }
+/* [FIX #1] 儲存按鈕 loading 狀態 */
+.btn-primary:disabled {
+  opacity: 0.65; cursor: not-allowed;
+  transform: none; box-shadow: none;
+}
 .btn-secondary { background: var(--cream); color: var(--brown); border: 1.5px solid var(--latte); }
 .btn-danger { background: #ffe8e5; color: #c0392b; border: 1.5px solid #f5c6c2; }
 
-.detail-thumb {
-  width: 100%; aspect-ratio: 16/9;
-  background: var(--cream);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4rem; overflow: hidden;
+/* ── DETAIL MODAL ── */
+/* [FIX #2] 詳情 modal 也要 flex column + scroll */
+#detailModal {
+  display: flex; flex-direction: column;
 }
+.detail-scroll-body {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 18px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+}
+.detail-thumb { width: 100%; aspect-ratio: 16/9; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 4rem; overflow: hidden; flex-shrink: 0; }
 .detail-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .detail-cat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-.detail-cat-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 0.78rem; color: var(--moon2); background: var(--moon-light);
-  border-radius: 20px; padding: 3px 10px; font-weight: 500;
-}
+.detail-cat-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--moon2); background: var(--moon-light); border-radius: 20px; padding: 3px 10px; font-weight: 500; }
 .detail-title { font-family: 'Noto Serif TC', serif; font-size: 1.15rem; font-weight: 700; color: var(--deep); margin-bottom: 10px; line-height: 1.45; }
 .detail-note { font-size: 0.88rem; color: var(--text); line-height: 1.7; white-space: pre-wrap; margin-bottom: 14px; word-break: break-word; }
-.detail-url-btn {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--moon-light); border: 1.5px solid var(--latte); border-radius: 12px;
-  padding: 10px 14px; color: var(--moon2); font-size: 0.85rem;
-  text-decoration: none; font-family: 'Zen Kaku Gothic New', sans-serif;
-  cursor: pointer; margin-bottom: 14px; transition: all 0.18s; word-break: break-all;
-}
+.detail-url-btn { display: flex; align-items: center; gap: 8px; background: var(--moon-light); border: 1.5px solid var(--latte); border-radius: 12px; padding: 10px 14px; color: var(--moon2); font-size: 0.85rem; text-decoration: none; font-family: 'Zen Kaku Gothic New', sans-serif; cursor: pointer; margin-bottom: 14px; transition: all 0.18s; word-break: break-all; }
 .detail-url-btn:hover { background: var(--moon-soft); }
-.detail-meta { font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--latte); padding-top: 10px; margin-top: 4px; }
-.detail-actions { display: flex; gap: 10px; margin-top: 16px; }
+.detail-meta { font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--latte); padding-top: 10px; margin-top: 4px; margin-bottom: 16px; }
+/* [FIX #2] 詳情操作按鈕獨立 sticky bar */
+.detail-actions {
+  display: flex; gap: 10px;
+  padding: 12px 18px max(12px, env(safe-area-inset-bottom, 12px));
+  background: var(--white);
+  border-top: 1px solid var(--latte);
+  flex-shrink: 0;
+}
 
+/* ── SETTINGS ── */
 .settings-section { margin-bottom: 20px; }
 .settings-title { font-family: 'Noto Serif TC', serif; font-size: 0.9rem; font-weight: 600; color: var(--deep); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 .setting-item { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; background: var(--cream); border: 1px solid var(--latte); border-radius: 10px; margin-bottom: 6px; cursor: pointer; transition: background 0.18s; }
 .setting-item:hover { background: var(--moon-soft); }
 .setting-label { font-size: 0.85rem; color: var(--text); }
 .setting-arrow { color: var(--muted); font-size: 0.85rem; }
-
 .cat-edit-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--cream); border: 1px solid var(--latte); border-radius: 10px; margin-bottom: 6px; }
 .cat-edit-emoji { font-size: 1.3rem; cursor: pointer; min-width: 32px; text-align: center; }
 .cat-edit-name { flex: 1; font-size: 0.88rem; color: var(--text); }
-.cat-edit-del {
-  background: none; border: none; color: var(--muted);
-  cursor: pointer; font-size: 1rem; padding: 2px 6px;
-  border-radius: 6px; transition: all 0.18s;
-}
+.cat-edit-del { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 6px; transition: all 0.18s; }
 .cat-edit-del:hover { background: #ffe8e5; color: #c0392b; }
 
-.login-screen {
-  min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 32px 24px; text-align: center;
-  background: linear-gradient(160deg, var(--milk) 0%, var(--cream) 100%);
-}
+/* ── LOGIN ── */
+.login-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; background: linear-gradient(160deg, var(--milk) 0%, var(--cream) 100%); }
 .login-icon { font-size: 4rem; margin-bottom: 16px; }
 .login-title { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 700; color: var(--deep); margin-bottom: 6px; }
 .login-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
@@ -494,13 +252,9 @@ body {
 .login-card .form-label { text-align: left; }
 .login-card .btn { width: 100%; margin-top: 14px; }
 
-.toast-wrap { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 500; pointer-events: none; }
-.toast {
-  background: var(--deep); color: var(--white);
-  padding: 10px 18px; border-radius: 24px; font-size: 0.84rem;
-  animation: toastIn 0.25s ease, toastOut 0.3s ease 2s forwards;
-  white-space: nowrap; box-shadow: 0 4px 16px rgba(92,61,30,0.3);
-}
+/* ── TOAST ── */
+.toast-wrap { position: fixed; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); z-index: 500; pointer-events: none; }
+.toast { background: var(--deep); color: var(--white); padding: 10px 18px; border-radius: 24px; font-size: 0.84rem; animation: toastIn 0.25s ease, toastOut 0.3s ease 2s forwards; white-space: nowrap; box-shadow: 0 4px 16px rgba(92,61,30,0.3); }
 @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
 
@@ -513,86 +267,16 @@ body {
 .confirm-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; font-weight: 600; color: var(--deep); margin-bottom: 6px; }
 .confirm-msg { font-size: 0.84rem; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
 
-.io-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 16px; border: 1.5px solid var(--latte); border-radius: 12px;
-  background: var(--cream); color: var(--text);
-  font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.9rem;
-  cursor: pointer; width: 100%; margin-bottom: 8px; transition: all 0.2s; text-align: left;
-}
+.io-btn { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border: 1.5px solid var(--latte); border-radius: 12px; background: var(--cream); color: var(--text); font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.9rem; cursor: pointer; width: 100%; margin-bottom: 8px; transition: all 0.2s; text-align: left; }
 .io-btn:hover { background: var(--moon-soft); border-color: var(--moon); }
 .io-btn-icon { font-size: 1.2rem; }
 .io-btn-text .io-label { font-weight: 500; }
 .io-btn-text .io-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
-
 .add-cat-row { display: flex; gap: 8px; margin-top: 8px; }
 .add-cat-row .form-input { flex: 1; }
 .add-cat-emoji-inp { width: 52px !important; text-align: center; font-size: 1.1rem; }
 
-/* 搜尋無結果：垂直水平置中 */
-.no-results-wrap {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  min-height: 240px; text-align: center;
-  color: var(--muted); font-size: 0.88rem; padding: 24px;
-}
-.no-results-wrap .nr-icon { font-size: 2.8rem; margin-bottom: 10px; opacity: 0.45; }
-mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; padding: 0 2px; }
-
-/* 搜尋 x 清空按鈕 */
-.search-clear {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  background: var(--latte); border: none; border-radius: 50%;
-  width: 18px; height: 18px;
-  display: none; align-items: center; justify-content: center;
-  font-size: 0.6rem; color: var(--brown); cursor: pointer; line-height: 1;
-}
-.search-clear.visible { display: flex; }
-.search-input { padding-right: 32px !important; }
-
-/* Lightbox */
-.lightbox-ov {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.88);
-  z-index: 900; display: none;
-  align-items: center; justify-content: center; cursor: zoom-out;
-}
-.lightbox-ov.active { display: flex; }
-.lightbox-img { max-width: 96vw; max-height: 92vh; object-fit: contain; border-radius: 10px; }
-.lightbox-close {
-  position: absolute; top: 14px; right: 16px;
-  background: rgba(255,255,255,0.18); border: none; border-radius: 50%;
-  width: 38px; height: 38px; color: #fff; font-size: 1.1rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-}
-
-/* 批量選取 */
-.bulk-bar {
-  position: sticky; top: 0; z-index: 110;
-  background: var(--deep); color: var(--white);
-  padding: 10px 14px;
-  display: none; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.bulk-bar.active { display: flex; }
-.bulk-count { font-size: 0.84rem; flex: 1; }
-.bulk-act-btn {
-  padding: 6px 14px; border-radius: 8px; border: none;
-  font-size: 0.8rem; cursor: pointer;
-  font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 500;
-}
-.bulk-del-btn { background: #e05050; color: #fff; }
-.bulk-cancel-btn { background: rgba(255,255,255,0.15); color: var(--white); }
-.card-select-check {
-  position: absolute; top: 8px; left: 8px;
-  width: 22px; height: 22px; border-radius: 50%;
-  border: 2px solid var(--latte); background: var(--white);
-  display: none; align-items: center; justify-content: center;
-  font-size: 0.75rem; z-index: 5;
-}
-.bulk-mode .card-select-check { display: flex; }
-.card-selected .card-select-check { background: var(--moon); border-color: var(--moon); color: #fff; }
-.card-selected { outline: 2.5px solid var(--moon); }
-
-/* 底部導覽 */
+/* ── BOTTOM NAV ── */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0;
   background: var(--white); border-top: 1.5px solid var(--latte);
@@ -601,29 +285,18 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .bottom-nav.show { display: flex; }
-.bn-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 8px 2px 6px; gap: 3px; cursor: pointer;
-  color: var(--muted); font-family: 'Zen Kaku Gothic New', sans-serif;
-  border: none; background: none;
-  -webkit-tap-highlight-color: transparent; transition: color .15s;
-}
+.bn-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 2px 6px; gap: 3px; cursor: pointer; color: var(--muted); font-family: 'Zen Kaku Gothic New', sans-serif; border: none; background: none; -webkit-tap-highlight-color: transparent; transition: color .15s; }
 .bn-item.active { color: var(--moon2); }
 .bn-item:active { opacity: .7; }
 .bn-icon { font-size: 20px; line-height: 1; }
 .bn-label { font-size: 9.5px; font-weight: 600; letter-spacing: .2px; line-height: 1; }
 
-/* FAB 在 tab bar 上方 */
-.fab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
-
 @media (max-width: 540px) {
-  .modal-body { padding: 14px 14px 20px; }
+  .modal-body { padding: 14px 14px; }
   .cat-grid { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .cat-grid::-webkit-scrollbar { display: none; }
 }
 </style>
-
 </head>
 <body>
 
@@ -636,7 +309,7 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
       <label class="form-label">家庭代號</label>
       <input id="loginCode" class="form-input" type="text" placeholder="請輸入家庭代號" autocomplete="off" style="text-align:center; font-size:1rem; letter-spacing:0.1em;">
     </div>
-    <button class="btn btn-primary" onclick="doLogin()">進入小百科 ✨</button>
+    <button class="btn btn-primary" onclick="doLogin()">進入小百科</button>
   </div>
 </div>
 
@@ -645,18 +318,17 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
     <div class="header-top">
       <div>
         <div class="app-title"><span class="emoji">📖</span> M.Y 小百科</div>
-        <div class="app-subtitle">嘟嘟一家 · 知識寶庫</div>
       </div>
       <div class="header-actions">
-        <button class="icon-btn" id="bulkToggleBtn" onclick="toggleBulkMode()" title="批量選取">☑️</button>
         <button class="icon-btn" onclick="openSettings()" title="設定">⚙️</button>
+        <button class="icon-btn" onclick="openIo()" title="匯出/匯入">📦</button>
       </div>
     </div>
     <div class="search-bar">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
         <input id="searchInput" class="search-input" type="text" placeholder="搜尋標題、筆記、網址…" oninput="onSearch()">
-        <button class="search-clear" id="searchClear" onclick="clearSearch()" title="清除搜尋">✕</button>
+        <button class="search-clear" id="searchClear" onclick="clearSearch()" title="清除">✕</button>
       </div>
     </div>
   </header>
@@ -670,25 +342,15 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
     <button class="filter-chip active" data-cat="all" onclick="setCatFilter('all')">全部</button>
   </div>
 
-  <div class="bulk-bar" id="bulkBar">
-    <span class="bulk-count" id="bulkCount">已選 0 項</span>
-    <button class="bulk-act-btn bulk-del-btn" onclick="bulkDelete()">刪除選取</button>
-    <button class="bulk-act-btn bulk-cancel-btn" onclick="toggleBulkMode()">取消</button>
-  </div>
-
   <main class="main">
     <div class="stats-bar" id="statsBar"></div>
     <div id="cardsContainer"></div>
   </main>
 
-<button class="fab" onclick="openAddModal()">＋</button>
+  <button class="fab" onclick="openAddModal()">＋</button>
 </div>
 
-<!-- LIGHTBOX -->
-<div class="lightbox-ov" id="lightboxOv" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <img class="lightbox-img" id="lightboxImg" src="" alt="">
-</div>
+<div class="toast-wrap" id="toastWrap"></div>
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav">
@@ -700,14 +362,11 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
   <button class="bn-item" onclick="wikiGoApp('pocket')"><span class="bn-icon">🗺️</span><span class="bn-label">地圖</span></button>
 </nav>
 
-<div class="toast-wrap" id="toastWrap"></div>
-
 <!-- ADD/EDIT MODAL -->
-
 <div class="overlay" id="addOverlay" onclick="closeOverlay(this,'addModal')">
   <div class="modal" id="addModal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <div class="modal-title" id="addModalTitle">📝 新增收藏</div>
+      <div class="modal-title" id="addModalTitle">新增收藏</div>
       <button class="modal-close" onclick="closeAddModal()">✕</button>
     </div>
     <div class="modal-body">
@@ -754,46 +413,49 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <label class="form-label">筆記內容</label>
         <textarea id="fNote" class="form-textarea" placeholder="記下重點、心得、使用方式…"></textarea>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-secondary" onclick="closeAddModal()">取消</button>
-        <button class="btn btn-primary" onclick="saveEntry()">💾 儲存</button>
-      </div>
+      <!-- [FIX #1] btn-row 移到 modal-body 外，成為 sticky footer -->
+    </div>
+    <!-- btn-row 在 modal-body 外，永遠可見 -->
+    <div class="btn-row" style="margin: 0; padding: 12px 18px max(16px, env(safe-area-inset-bottom, 16px)); border-top: 1px solid var(--latte);">
+      <button class="btn btn-secondary" onclick="closeAddModal()">取消</button>
+      <button class="btn btn-primary" id="saveBtn" onclick="saveEntry()">儲存</button>
     </div>
   </div>
 </div>
 
 <!-- DETAIL MODAL -->
-
 <div class="overlay" id="detailOverlay" onclick="closeOverlay(this,'detailModal')">
   <div class="modal" id="detailModal" onclick="event.stopPropagation()">
-    <div id="detailThumb" class="detail-thumb"></div>
-    <div class="modal-body" style="padding-top:14px;">
+    <!-- [FIX #2] detail-thumb 在 modal 頂部，不捲動 -->
+    <div id="detailThumb" class="detail-thumb" style="flex-shrink:0;"></div>
+    <!-- 可捲動內容區 -->
+    <div class="detail-scroll-body">
       <div class="detail-cat-row" id="detailCatRow"></div>
-      <div class="detail-tags" id="detailTags"></div>
+      <div id="detailTags"></div>
       <div class="detail-title" id="detailTitle"></div>
       <div class="detail-note" id="detailNote"></div>
       <a id="detailUrlBtn" class="detail-url-btn" target="_blank" rel="noopener" style="display:none">
         🔗 <span id="detailUrlText"></span>
       </a>
       <div class="detail-meta" id="detailMeta"></div>
-      <div class="detail-actions">
-        <button class="btn btn-secondary" onclick="editEntry()">✏️ 編輯</button>
-        <button class="btn btn-danger" onclick="confirmDelete()">刪除</button>
-        <button class="btn btn-secondary" onclick="closeDetailModal()" style="flex:0.5">✕</button>
-      </div>
+    </div>
+    <!-- [FIX #2] 操作按鈕永遠固定在 modal 底部 -->
+    <div class="detail-actions">
+      <button class="btn btn-secondary" onclick="editEntry()">編輯</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">刪除</button>
+      <button class="btn btn-secondary" onclick="closeDetailModal()" style="flex:0.5">✕</button>
     </div>
   </div>
 </div>
 
 <!-- CONFIRM MODAL -->
-
 <div class="overlay center-modal" id="confirmOverlay">
   <div class="modal small-modal" onclick="event.stopPropagation()">
     <div class="confirm-body">
       <div class="confirm-icon">🗑️</div>
       <div class="confirm-title">確定要刪除嗎？</div>
       <div class="confirm-msg" id="confirmMsg">這筆收藏將會永久刪除，無法復原。</div>
-      <div class="btn-row" style="position:static;">
+      <div class="btn-row" style="position:static; border-top:none; padding-top:0;">
         <button class="btn btn-secondary" onclick="closeConfirm()">取消</button>
         <button class="btn btn-danger" onclick="doDelete()">確定刪除</button>
       </div>
@@ -802,32 +464,22 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
 </div>
 
 <!-- SETTINGS MODAL -->
-
 <div class="overlay" id="settingsOverlay" onclick="closeOverlay(this,'settingsModal')">
   <div class="modal" id="settingsModal" onclick="event.stopPropagation()">
     <div class="modal-header">
-      <div class="modal-title">⚙️ 設定</div>
+      <div class="modal-title">設定</div>
       <button class="modal-close" onclick="closeSettings()">✕</button>
     </div>
     <div class="modal-body">
       <div class="settings-section">
-        <div class="settings-title">🏠 家庭代號</div>
+        <div class="settings-title">家庭代號</div>
         <div class="setting-item" onclick="changeRoom()">
           <span class="setting-label" id="settingRoom">-</span>
           <span class="setting-arrow">→ 更換</span>
         </div>
       </div>
       <div class="settings-section">
-        <div class="settings-title">🏷 分類管理</div>
-        <div id="catEditList"></div>
-        <div class="add-cat-row">
-          <input id="newCatEmoji" class="form-input add-cat-emoji-inp" type="text" placeholder="😊" maxlength="2">
-          <input id="newCatName" class="form-input" type="text" placeholder="新分類名稱">
-          <button class="btn btn-primary" style="flex:0; padding:10px 14px; white-space:nowrap;" onclick="addCategory()">新增</button>
-        </div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-title">📦 備份與還原</div>
+        <div class="settings-title">備份與還原</div>
         <button class="io-btn" onclick="exportJson()">
           <span class="io-btn-icon">📤</span>
           <div class="io-btn-text"><div class="io-label">匯出 JSON 備份</div><div class="io-sub">下載完整資料備份檔</div></div>
@@ -843,20 +495,50 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
       </div>
       <div class="settings-section">
-        <div class="settings-title">📊 統計</div>
-        <div id="statsDetail" style="font-size:0.85rem; color:var(--muted); line-height:1.8;"></div>
+        <div class="settings-title">分類管理</div>
+        <div id="catEditList"></div>
+        <div class="add-cat-row">
+          <input id="newCatEmoji" class="form-input add-cat-emoji-inp" type="text" placeholder="😊" maxlength="2">
+          <input id="newCatName" class="form-input" type="text" placeholder="新分類名稱">
+          <button class="btn btn-primary" style="flex:0; padding:10px 14px; white-space:nowrap;" onclick="addCategory()">新增</button>
+        </div>
       </div>
-      <div class="btn-row" style="position:static; padding-bottom:8px;">
-        <button class="btn btn-secondary" onclick="closeSettings()">關閉</button>
+      <div class="settings-section">
+        <div class="settings-title">統計</div>
+        <div id="statsDetail" style="font-size:0.85rem; color:var(--muted); line-height:1.8;"></div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- IO MODAL -->
+<div class="overlay" id="ioOverlay" onclick="closeOverlay(this,'ioModal')">
+  <div class="modal" id="ioModal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title">匯出 / 匯入</div>
+      <button class="modal-close" onclick="closeIo()">✕</button>
+    </div>
+    <div class="modal-body">
+      <button class="io-btn" onclick="exportJson()">
+        <span class="io-btn-icon">📤</span>
+        <div class="io-btn-text"><div class="io-label">匯出 JSON 備份</div><div class="io-sub">下載完整資料備份檔</div></div>
+      </button>
+      <button class="io-btn" onclick="exportCsv()">
+        <span class="io-btn-icon">📊</span>
+        <div class="io-btn-text"><div class="io-label">匯出 CSV</div><div class="io-sub">可用 Excel 開啟的試算表格式</div></div>
+      </button>
+      <button class="io-btn" onclick="document.getElementById('importInput2').click()">
+        <span class="io-btn-icon">📥</span>
+        <div class="io-btn-text"><div class="io-label">匯入 JSON 還原</div><div class="io-sub">從備份檔案還原（會合併資料）</div></div>
+      </button>
+      <input type="file" id="importInput2" accept=".json" style="display:none" onchange="importJson(event)">
+    </div>
+  </div>
+</div>
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
-import { 
+import {
   getFirestore, collection, doc, setDoc, deleteDoc,
   onSnapshot, serverTimestamp, query, orderBy
 } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js';
@@ -881,18 +563,27 @@ let selectedCatId = null;
 let imgBase64 = null;
 let unsubEntries = null;
 let unsubMeta = null;
-let bulkSelected = new Set();
+// [FIX #1] 防止重複送出
+let isSaving = false;
 
 const DEFAULT_CATS = [
   { id: 'parenting', emoji: '👶🏻', name: '育兒知識' },
-  { id: 'travel',    emoji: '✈️', name: '旅遊筆記' },
-  { id: 'tools',     emoji: '🔧', name: '工具連結' },
-  { id: 'manuals',   emoji: '📋', name: '說明書' },
-  { id: 'recipes',   emoji: '🍳', name: '食譜料理' },
-  { id: 'shopping',  emoji: '🛍', name: '好物推薦' },
+  { id: 'travel',    emoji: '✈️',  name: '旅遊筆記' },
+  { id: 'tools',     emoji: '🔧',  name: '工具連結' },
+  { id: 'manuals',   emoji: '📋',  name: '說明書' },
+  { id: 'recipes',   emoji: '🍳',  name: '食譜料理' },
+  { id: 'shopping',  emoji: '🛍',  name: '好物推薦' },
 ];
 
-// ── [FIX] 全部函式都暴露到 window，避免 ES module 作用域問題 ──
+const WIKI_URLS = {
+  home:   'https://yui0151.github.io/home/',
+  sec:    'https://yui0151.github.io/secretary/',
+  inv:    'https://yui0151.github.io/inventory/',
+  ward:   'https://yui0151.github.io/wardrobe/',
+  pocket: 'https://yamap610.github.io/pocket-list/',
+};
+
+// expose to window (ES module scope isolation)
 window.doLogin = doLogin;
 window.openAddModal = openAddModal;
 window.closeAddModal = closeAddModal;
@@ -907,7 +598,6 @@ window.confirmDelete = confirmDelete;
 window.doDelete = doDelete;
 window.closeConfirm = closeConfirm;
 window.closeDetailModal = closeDetailModal;
-window.openDetail = openDetail;
 window.openSettings = openSettings;
 window.closeSettings = closeSettings;
 window.addCategory = addCategory;
@@ -922,21 +612,8 @@ window.onImgFile = onImgFile;
 window.onImgUrlInput = onImgUrlInput;
 window.onUrlInput = onUrlInput;
 window.fetchUrlPreview = fetchUrlPreview;
-window.toggleBulkMode = toggleBulkMode;
-window.bulkDelete = bulkDelete;
-window.closeLightbox = closeLightbox;
 window.wikiGoApp = wikiGoApp;
-window.cardClick = cardClick;
-window.openLightbox = openLightbox;
 
-// ── 導覽 ──
-const WIKI_URLS = {
-  home: 'https://yui0151.github.io/home/',
-  sec:  'https://yui0151.github.io/secretary/',
-  inv:  'https://yui0151.github.io/inventory/',
-  ward: 'https://yui0151.github.io/wardrobe/',
-  pocket: 'https://yamap610.github.io/pocket-list/',
-};
 function wikiGoApp(key) {
   const base = WIKI_URLS[key]; if (!base) return;
   window.location.href = base + (roomCode ? '?code=' + roomCode : '');
@@ -944,14 +621,9 @@ function wikiGoApp(key) {
 
 function init() {
   const params = new URLSearchParams(location.search);
-  const codeFromUrl = params.get('code');
-  const codeFromStorage = localStorage.getItem('dash_last_room');
-  const code = codeFromUrl || codeFromStorage;
-  if (code) {
-    startApp(code.toLowerCase().trim());
-  } else {
-    document.getElementById('loginScreen').style.display = 'flex';
-  }
+  const code = params.get('code') || localStorage.getItem('dash_last_room');
+  if (code) { startApp(code.toLowerCase().trim()); }
+  else { document.getElementById('loginScreen').style.display = 'flex'; }
 }
 
 function doLogin() {
@@ -971,41 +643,29 @@ function startApp(code) {
 
 function subscribeData() {
   const metaRef = doc(db, 'vault_meta_v1', roomCode);
-  const entriesRef = query(
-    collection(db, `vault_v1/${roomCode}/entries`),
-    orderBy('createdAt', 'desc')
-  );
-
+  const entriesRef = query(collection(db, `vault_v1/${roomCode}/entries`), orderBy('createdAt', 'desc'));
   unsubMeta = onSnapshot(metaRef, snap => {
     categories = snap.exists() ? (snap.data().categories || DEFAULT_CATS) : [...DEFAULT_CATS];
-    renderFilterChips();
-    renderCatGrid();
-    renderCatEditList();
+    renderFilterChips(); renderCatGrid(); renderCatEditList();
   });
-
   unsubEntries = onSnapshot(entriesRef, snap => {
     entries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderCards();
-    renderStats();
+    renderCards(); renderStats();
   });
 }
 
 async function saveMeta() {
-  const metaRef = doc(db, 'vault_meta_v1', roomCode);
-  await setDoc(metaRef, { categories }, { merge: true });
+  await setDoc(doc(db, 'vault_meta_v1', roomCode), { categories }, { merge: true });
 }
 
 function renderFilterChips() {
   const bar = document.getElementById('filterBar');
   bar.querySelectorAll('.filter-chip').forEach(c => c.remove());
-  
   const allChip = document.createElement('button');
   allChip.className = 'filter-chip' + (currentCat === 'all' ? ' active' : '');
-  allChip.textContent = '全部';
-  allChip.setAttribute('data-cat', 'all');
+  allChip.textContent = '全部'; allChip.setAttribute('data-cat', 'all');
   allChip.onclick = () => setCatFilter('all');
   bar.appendChild(allChip);
-
   categories.forEach(cat => {
     const ch = document.createElement('button');
     ch.className = 'filter-chip' + (currentCat === cat.id ? ' active' : '');
@@ -1017,8 +677,7 @@ function renderFilterChips() {
 }
 
 function renderCatGrid() {
-  const grid = document.getElementById('catGrid');
-  if (!grid) return;
+  const grid = document.getElementById('catGrid'); if (!grid) return;
   grid.innerHTML = '';
   categories.forEach(cat => {
     const div = document.createElement('div');
@@ -1030,38 +689,25 @@ function renderCatGrid() {
 }
 
 function renderCatEditList() {
-  const list = document.getElementById('catEditList');
-  if (!list) return;
+  const list = document.getElementById('catEditList'); if (!list) return;
   list.innerHTML = '';
   categories.forEach((cat, i) => {
     const div = document.createElement('div');
     div.className = 'cat-edit-item';
-    // [FIX] 刪除圖示改為 ✕
     div.innerHTML = `
-      <span class="cat-edit-emoji" title="點擊更換Emoji" onclick="promptCatEmoji(${i})">${cat.emoji}</span>
+      <span class="cat-edit-emoji" onclick="promptCatEmoji(${i})">${cat.emoji}</span>
       <span class="cat-edit-name">${cat.name}</span>
-      <button class="cat-edit-del" onclick="deleteCategory(${i})" title="刪除">✕</button>
-    `;
+      <button class="cat-edit-del" onclick="deleteCategory(${i})">✕</button>`;
     list.appendChild(div);
   });
 }
-
 window.promptCatEmoji = function(i) {
   const e = prompt('輸入新 Emoji：', categories[i].emoji);
-  if (e && e.trim()) {
-    categories[i].emoji = e.trim();
-    saveMeta();
-    renderCatEditList();
-    renderFilterChips();
-  }
+  if (e && e.trim()) { categories[i].emoji = e.trim(); saveMeta(); renderCatEditList(); renderFilterChips(); }
 };
-
 window.deleteCategory = async function(i) {
   if (!confirm(`確定刪除「${categories[i].name}」分類？`)) return;
-  categories.splice(i, 1);
-  await saveMeta();
-  renderCatEditList();
-  renderFilterChips();
+  categories.splice(i, 1); await saveMeta(); renderCatEditList(); renderFilterChips();
 };
 
 function getFiltered() {
@@ -1089,16 +735,13 @@ function onSearch() {
 function clearSearch() {
   document.getElementById('searchInput').value = '';
   searchQ = '';
-  const btn = document.getElementById('searchClear');
-  if (btn) btn.classList.remove('visible');
+  document.getElementById('searchClear').classList.remove('visible');
   renderCards();
 }
 
 function setCatFilter(catId) {
   currentCat = catId;
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.classList.toggle('active', c.getAttribute('data-cat') === catId);
-  });
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.getAttribute('data-cat') === catId));
   renderCards();
 }
 
@@ -1111,13 +754,11 @@ function setView(v) {
 
 function renderStats() {
   const sb = document.getElementById('statsBar');
-  sb.innerHTML = `
-    <div class="stat-pill">共 <strong>${entries.length}</strong> 筆</div>
-    ${categories.map(c => {
+  sb.innerHTML = `<div class="stat-pill">共 <strong>${entries.length}</strong> 筆</div>` +
+    categories.map(c => {
       const cnt = entries.filter(e => e.cat === c.id).length;
       return cnt > 0 ? `<div class="stat-pill">${c.emoji}<strong>${cnt}</strong></div>` : '';
-    }).join('')}
-  `;
+    }).join('');
   const sd = document.getElementById('statsDetail');
   if (sd) {
     sd.innerHTML = categories.map(c => {
@@ -1130,139 +771,77 @@ function renderStats() {
 function renderCards() {
   const container = document.getElementById('cardsContainer');
   const list = getFiltered();
-  const isBulk = bulkSelected !== undefined && document.getElementById('bulkBar').classList.contains('active');
-
   if (entries.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📖</div>
-        <div class="empty-title">還沒有任何收藏</div>
-        <div class="empty-sub">點下方 ＋ 按鈕開始新增吧！</div>
-      </div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">📖</div><div class="empty-title">還沒有任何收藏</div><div class="empty-sub">點下方 ＋ 按鈕開始新增吧！</div></div>`;
     return;
   }
   if (list.length === 0) {
     container.innerHTML = `<div class="no-results-wrap"><div class="nr-icon">😕</div><div>找不到符合的收藏</div></div>`;
     return;
   }
-
-  const hl = (text) => {
+  const hl = text => {
     if (!searchQ || !text) return text || '';
-    const re = new RegExp(`(${searchQ.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-    return text.replace(re, '<mark>$1</mark>');
+    return text.replace(new RegExp(`(${searchQ.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
   };
-
   if (currentView === 'grid') {
-    container.className = 'cards-grid' + (isBulk ? ' bulk-mode' : '');
+    container.className = 'cards-grid';
     container.innerHTML = list.map(e => {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const domain = e.url ? tryGetDomain(e.url) : '';
       const safeId = e.id.replace(/'/g, "\\'");
-      const safeThumb = thumb ? thumb.replace(/'/g, "\\'") : '';
-      const isSel = bulkSelected.has(e.id);
-      return `
-        <div class="card card-grid${isSel ? ' card-selected' : ''}" onclick="cardClick('${safeId}')">
-          <div class="card-select-check">${isSel ? '✓' : ''}</div>
-          <div class="card-thumb">
-            ${thumb
-              ? `<img src="${thumb}" alt="" onclick="if(!document.getElementById('bulkBar').classList.contains('active')){event.stopPropagation();openLightbox('${safeThumb}')}" onerror="this.style.display='none'">`
-              : `<span class="thumb-placeholder">${cat ? cat.emoji : '📄'}</span>`}
-          </div>
-          <div class="card-body">
-            <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
-            <div class="card-title">${hl(e.title)}</div>
-            ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
-            ${domain ? `<div class="card-url-chip">🔗 ${domain}</div>` : ''}
-          </div>
-        </div>`;
+      return `<div class="card card-grid" onclick="openDetail('${safeId}')">
+        <div class="card-thumb">
+          ${thumb
+            ? `<img src="${thumb}" alt="" onerror="this.style.display='none'">`
+            : `<span class="thumb-placeholder">${cat ? cat.emoji : '📄'}</span>`}
+        </div>
+        <div class="card-body">
+          <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
+          <div class="card-title">${hl(e.title)}</div>
+          ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
+          ${domain ? `<div class="card-url-chip">🔗 ${domain}</div>` : ''}
+        </div>
+      </div>`;
     }).join('');
   } else {
-    container.className = 'cards-list' + (isBulk ? ' bulk-mode' : '');
+    container.className = 'cards-list';
     container.innerHTML = list.map(e => {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleDateString('zh-TW') : '';
       const safeId = e.id.replace(/'/g, "\\'");
-      const isSel = bulkSelected.has(e.id);
-      return `
-        <div class="card card-list${isSel ? ' card-selected' : ''}" onclick="cardClick('${safeId}')">
-          <div class="card-select-check">${isSel ? '✓' : ''}</div>
-          <div class="card-thumb-sm">
-            ${thumb ? `<img src="${thumb}" alt="" onerror="this.style.display='none'">` : (cat ? cat.emoji : '📄')}
-          </div>
-          <div class="card-info">
-            <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
-            <div class="card-title">${hl(e.title)}</div>
-            ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
-            <div class="card-date">${dateStr}</div>
-          </div>
-        </div>`;
+      return `<div class="card card-list" onclick="openDetail('${safeId}')">
+        <div class="card-thumb-sm">
+          ${thumb ? `<img src="${thumb}" alt="" onerror="this.style.display='none'">` : (cat ? cat.emoji : '📄')}
+        </div>
+        <div class="card-info">
+          <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
+          <div class="card-title">${hl(e.title)}</div>
+          ${e.note ? `<div class="card-note">${hl(e.note)}</div>` : ''}
+          <div class="card-date">${dateStr}</div>
+        </div>
+      </div>`;
     }).join('');
   }
 }
+window.openDetail = openDetail;
 
-// ── 批量選取 ──
-function toggleBulkMode() {
-  const bar = document.getElementById('bulkBar');
-  const isActive = bar.classList.toggle('active');
-  if (!isActive) { bulkSelected.clear(); }
-  renderCards();
-}
-
-function cardClick(id) {
-  if (document.getElementById('bulkBar').classList.contains('active')) {
-    if (bulkSelected.has(id)) bulkSelected.delete(id); else bulkSelected.add(id);
-    document.getElementById('bulkCount').textContent = `已選 ${bulkSelected.size} 項`;
-    renderCards();
-  } else {
-    openDetail(id);
-  }
-}
-
-async function bulkDelete() {
-  if (bulkSelected.size === 0) { showToast('請先勾選項目'); return; }
-  if (!confirm(`確定要刪除選取的 ${bulkSelected.size} 筆收藏嗎？此操作無法復原。`)) return;
-  for (const id of bulkSelected) {
-    await deleteDoc(doc(db, `vault_v1/${roomCode}/entries`, id));
-  }
-  showToast(`已刪除 ${bulkSelected.size} 筆`);
-  bulkSelected.clear();
-  toggleBulkMode();
-}
-
-// ── Lightbox ──
-function openLightbox(src) {
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('lightboxOv').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightboxOv').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function tryGetDomain(url) {
-  try { return new URL(url).hostname.replace('www.', ''); } catch { return ''; }
-}
+function tryGetDomain(url) { try { return new URL(url).hostname.replace('www.', ''); } catch { return ''; } }
 
 function openAddModal(idToEdit = null) {
-  editingId = idToEdit;
-  imgBase64 = null;
-  document.getElementById('fTitle').value = '';
-  document.getElementById('fTags').value = '';
-  document.getElementById('fUrl').value = '';
-  document.getElementById('fNote').value = '';
-  document.getElementById('fImgUrl').value = '';
+  editingId = idToEdit; imgBase64 = null; isSaving = false;
+  const saveBtn = document.getElementById('saveBtn');
+  if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '儲存'; }
+  ['fTitle','fTags','fUrl','fNote','fImgUrl'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('imgPreviewWrap').style.display = 'none';
   document.getElementById('imgUploadArea').style.display = 'block';
   document.getElementById('urlPreview').classList.remove('visible');
   selectedCatId = null;
-
   if (idToEdit) {
     const e = entries.find(x => x.id === idToEdit);
     if (e) {
-      document.getElementById('addModalTitle').textContent = '✏️ 編輯收藏';
+      document.getElementById('addModalTitle').textContent = '編輯收藏';
       document.getElementById('fTitle').value = e.title || '';
       document.getElementById('fTags').value = e.tags || '';
       document.getElementById('fUrl').value = e.url || '';
@@ -1270,35 +849,22 @@ function openAddModal(idToEdit = null) {
       selectedCatId = e.cat || null;
       if (e.imgData) { imgBase64 = e.imgData; showImgPreview(e.imgData); }
       else if (e.imgUrl) { document.getElementById('fImgUrl').value = e.imgUrl; showImgPreview(e.imgUrl); }
-      if (e.url) { setTimeout(fetchUrlPreview, 100); }
+      if (e.url) setTimeout(fetchUrlPreview, 100);
     }
   } else {
-    document.getElementById('addModalTitle').textContent = '📝 新增收藏';
+    document.getElementById('addModalTitle').textContent = '新增收藏';
   }
-
   renderCatGrid();
   document.getElementById('addOverlay').classList.add('active');
   document.getElementById('addModal').scrollTop = 0;
   setTimeout(() => document.getElementById('fTitle').focus(), 200);
 }
 
-function closeAddModal() {
-  document.getElementById('addOverlay').classList.remove('active');
-  editingId = null;
-}
-
-function closeOverlay(overlay, modalId) {
-  if (event && event.target === overlay) overlay.classList.remove('active');
-}
-
-function onUrlInput() {
-  const url = document.getElementById('fUrl').value.trim();
-  if (!url) document.getElementById('urlPreview').classList.remove('visible');
-}
-
+function closeAddModal() { document.getElementById('addOverlay').classList.remove('active'); editingId = null; }
+function closeOverlay(overlay, modalId) { if (event && event.target === overlay) overlay.classList.remove('active'); }
+function onUrlInput() { if (!document.getElementById('fUrl').value.trim()) document.getElementById('urlPreview').classList.remove('visible'); }
 function fetchUrlPreview() {
-  const url = document.getElementById('fUrl').value.trim();
-  if (!url) return;
+  const url = document.getElementById('fUrl').value.trim(); if (!url) return;
   try {
     const domain = new URL(url).hostname.replace('www.', '');
     document.getElementById('urlPreviewTitle').textContent = domain;
@@ -1307,26 +873,18 @@ function fetchUrlPreview() {
     document.getElementById('urlPreview').classList.add('visible');
   } catch {}
 }
-
 function onImgFile(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (e) => { imgBase64 = e.target.result; showImgPreview(imgBase64); };
-  reader.readAsDataURL(file);
+  const file = event.target.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => { imgBase64 = e.target.result; showImgPreview(imgBase64); };
+  r.readAsDataURL(file);
 }
-
-function onImgUrlInput() {
-  const url = document.getElementById('fImgUrl').value.trim();
-  if (url) { showImgPreview(url); imgBase64 = null; }
-}
-
+function onImgUrlInput() { const url = document.getElementById('fImgUrl').value.trim(); if (url) { showImgPreview(url); imgBase64 = null; } }
 function showImgPreview(src) {
   document.getElementById('imgPreview').src = src;
   document.getElementById('imgPreviewWrap').style.display = 'block';
   document.getElementById('imgUploadArea').style.display = 'none';
 }
-
 function removeImg() {
   imgBase64 = null;
   document.getElementById('fImgUrl').value = '';
@@ -1335,84 +893,76 @@ function removeImg() {
   document.getElementById('imgFileInput').value = '';
 }
 
+// [FIX #1] saveEntry：防重複送出
 async function saveEntry() {
+  if (isSaving) return;
   const title = document.getElementById('fTitle').value.trim();
   if (!title) { showToast('請填寫標題'); return; }
 
-  const imgUrl = document.getElementById('fImgUrl').value.trim();
-  const rawTags = document.getElementById('fTags').value.trim();
-  const tags = rawTags ? rawTags.split(/[\s,，]+/).filter(Boolean).map(t => t.startsWith('#') ? t : '#'+t).join(' ') : '';
+  // 立即禁用按鈕
+  isSaving = true;
+  const saveBtn = document.getElementById('saveBtn');
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '儲存中…'; }
 
-  const data = {
-    title, tags,
-    cat: selectedCatId || null,
-    url: document.getElementById('fUrl').value.trim() || null,
-    note: document.getElementById('fNote').value.trim() || null,
-    imgData: imgBase64 || null,
-    imgUrl: !imgBase64 ? (imgUrl || null) : null,
-    updatedAt: serverTimestamp(),
-  };
-
-  if (editingId) {
-    await setDoc(doc(db, `vault_v1/${roomCode}/entries`, editingId), data, { merge: true });
-    showToast('✅ 已更新');
-  } else {
-    data.createdAt = serverTimestamp();
-    const id = 'e_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
-    await setDoc(doc(db, `vault_v1/${roomCode}/entries`, id), data);
-    showToast('✅ 已新增');
+  try {
+    const imgUrl = document.getElementById('fImgUrl').value.trim();
+    const rawTags = document.getElementById('fTags').value.trim();
+    const tags = rawTags ? rawTags.split(/[\s,，]+/).filter(Boolean).map(t => t.startsWith('#') ? t : '#'+t).join(' ') : '';
+    const data = {
+      title, tags, cat: selectedCatId || null,
+      url: document.getElementById('fUrl').value.trim() || null,
+      note: document.getElementById('fNote').value.trim() || null,
+      imgData: imgBase64 || null,
+      imgUrl: !imgBase64 ? (imgUrl || null) : null,
+      updatedAt: serverTimestamp(),
+    };
+    if (editingId) {
+      await setDoc(doc(db, `vault_v1/${roomCode}/entries`, editingId), data, { merge: true });
+      showToast('已更新');
+    } else {
+      data.createdAt = serverTimestamp();
+      const id = 'e_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+      await setDoc(doc(db, `vault_v1/${roomCode}/entries`, id), data);
+      showToast('已新增');
+    }
+    closeAddModal();
+  } catch (err) {
+    showToast('儲存失敗：' + err.message);
+    // 失敗時恢復按鈕，讓使用者可以重試
+    if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '儲存'; }
+    isSaving = false;
   }
-  closeAddModal();
 }
 
 function openDetail(id) {
-  const e = entries.find(x => x.id === id);
-  if (!e) return;
-  deletingId = id;
-  editingId = id;
-
+  const e = entries.find(x => x.id === id); if (!e) return;
+  deletingId = id; editingId = id;
   const cat = categories.find(c => c.id === e.cat);
   const thumb = e.imgData || e.imgUrl;
-
   const dt = document.getElementById('detailThumb');
   if (thumb) {
-    dt.innerHTML = `<img src="${thumb}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
+    dt.innerHTML = `<img src="${thumb}" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`;
   } else {
     dt.innerHTML = `<span style="font-size:5rem;opacity:0.35">${cat ? cat.emoji : '📄'}</span>`;
     dt.style.background = 'var(--cream)';
   }
-  dt.style.display = 'flex';
-
   document.getElementById('detailCatRow').innerHTML = cat ? `<span class="detail-cat-badge">${cat.emoji} ${cat.name}</span>` : '';
-
   const dtags = document.getElementById('detailTags');
   if (e.tags) {
-    dtags.innerHTML = e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="detail-cat-badge" style="font-size:0.72rem;">${t}</span>`).join(' ');
-    dtags.style.display = 'flex';
-    dtags.style.flexWrap = 'wrap';
-    dtags.style.gap = '4px';
-    dtags.style.marginBottom = '8px';
-  } else {
-    dtags.style.display = 'none';
-  }
-
+    dtags.innerHTML = e.tags.split(/\s+/).filter(Boolean).map(t => `<span class="detail-cat-badge" style="font-size:0.72rem;margin:2px;">${t}</span>`).join('');
+    dtags.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;';
+  } else { dtags.style.display = 'none'; }
   document.getElementById('detailTitle').textContent = e.title || '';
   const noteEl = document.getElementById('detailNote');
-  noteEl.textContent = e.note || '';
-  noteEl.style.display = e.note ? 'block' : 'none';
-
+  noteEl.textContent = e.note || ''; noteEl.style.display = e.note ? 'block' : 'none';
   const urlBtn = document.getElementById('detailUrlBtn');
-  if (e.url) {
-    urlBtn.href = e.url;
-    document.getElementById('detailUrlText').textContent = tryGetDomain(e.url) || e.url;
-    urlBtn.style.display = 'flex';
-  } else {
-    urlBtn.style.display = 'none';
-  }
-
+  if (e.url) { urlBtn.href = e.url; document.getElementById('detailUrlText').textContent = tryGetDomain(e.url) || e.url; urlBtn.style.display = 'flex'; }
+  else { urlBtn.style.display = 'none'; }
   const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleString('zh-TW') : '';
   document.getElementById('detailMeta').textContent = dateStr ? `新增於 ${dateStr}` : '';
-
+  // 捲動 scroll body 回頂部
+  const scrollBody = document.querySelector('.detail-scroll-body');
+  if (scrollBody) scrollBody.scrollTop = 0;
   document.getElementById('detailOverlay').classList.add('active');
 }
 
@@ -1420,29 +970,23 @@ function closeDetailModal() { document.getElementById('detailOverlay').classList
 function editEntry() { closeDetailModal(); setTimeout(() => openAddModal(editingId), 100); }
 function confirmDelete() { document.getElementById('confirmOverlay').classList.add('active'); }
 function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('active'); }
-
 async function doDelete() {
   if (!deletingId) return;
   await deleteDoc(doc(db, `vault_v1/${roomCode}/entries`, deletingId));
-  closeConfirm();
-  closeDetailModal();
-  showToast('已刪除');
-  deletingId = null;
+  closeConfirm(); closeDetailModal();
+  showToast('已刪除'); deletingId = null;
 }
 
 function openSettings() {
   document.getElementById('settingRoom').textContent = roomCode;
-  renderCatEditList();
-  renderStats();
+  renderCatEditList(); renderStats();
   document.getElementById('settingsOverlay').classList.add('active');
 }
 function closeSettings() { document.getElementById('settingsOverlay').classList.remove('active'); }
-
 function changeRoom() {
   const newCode = prompt('輸入新的家庭代號：', roomCode);
   if (newCode && newCode.trim()) { startApp(newCode.trim().toLowerCase()); closeSettings(); }
 }
-
 async function addCategory() {
   const emoji = document.getElementById('newCatEmoji').value.trim() || '📁';
   const name = document.getElementById('newCatName').value.trim();
@@ -1451,46 +995,38 @@ async function addCategory() {
   await saveMeta();
   document.getElementById('newCatEmoji').value = '';
   document.getElementById('newCatName').value = '';
-  renderCatEditList();
-  renderFilterChips();
-  showToast('✅ 分類已新增');
+  renderCatEditList(); renderFilterChips(); showToast('分類已新增');
 }
 
-function openIo() { openSettings(); }
-function closeIo() { closeSettings(); }
+function openIo() { document.getElementById('ioOverlay').classList.add('active'); }
+function closeIo() { document.getElementById('ioOverlay').classList.remove('active'); }
 
 function exportJson() {
-  const data = {
-    exportedAt: new Date().toISOString(), roomCode, categories,
-    entries: entries.map(e => ({
-      ...e,
+  const data = { exportedAt: new Date().toISOString(), roomCode, categories,
+    entries: entries.map(e => ({ ...e,
       createdAt: e.createdAt ? e.createdAt.toDate().toISOString() : null,
       updatedAt: e.updatedAt ? e.updatedAt.toDate().toISOString() : null,
     })),
   };
-  download('MY小百科_備份_' + todayStr() + '.json', JSON.stringify(data, null, 2), 'application/json');
-  showToast('📤 JSON 已匯出');
+  dl('MY小百科_備份_' + todayStr() + '.json', JSON.stringify(data, null, 2), 'application/json');
+  showToast('JSON 已匯出');
 }
-
 function exportCsv() {
-  const header = ['標題', '分類', '網址', '筆記', '新增日期'];
+  const header = ['標題','分類','網址','筆記','新增日期'];
   const rows = entries.map(e => {
     const cat = categories.find(c => c.id === e.cat);
     const date = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleDateString('zh-TW') : '';
-    return [e.title, cat ? cat.emoji + cat.name : '', e.url || '', (e.note || '').replace(/\n/g,' '), date];
+    return [e.title, cat ? cat.emoji+cat.name : '', e.url||'', (e.note||'').replace(/\n/g,' '), date];
   });
-  const csv = [header, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  download('MY小百科_' + todayStr() + '.csv', '\uFEFF' + csv, 'text/csv');
-  showToast('📊 CSV 已匯出');
+  const csv = [header,...rows].map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  dl('MY小百科_' + todayStr() + '.csv', '\uFEFF'+csv, 'text/csv');
+  showToast('CSV 已匯出');
 }
-
 async function importJson(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const file = event.target.files[0]; if (!file) return;
   try {
-    const text = await file.text();
-    const data = JSON.parse(text);
-    if (!data.entries) { showToast('❌ 格式不正確'); return; }
+    const data = JSON.parse(await file.text());
+    if (!data.entries) { showToast('格式不正確'); return; }
     let count = 0;
     for (const e of data.entries) {
       const { createdAt, updatedAt, id, ...rest } = e;
@@ -1498,36 +1034,26 @@ async function importJson(event) {
       await setDoc(doc(db, `vault_v1/${roomCode}/entries`, eId), { ...rest, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }, { merge: true });
       count++;
     }
-    showToast(`✅ 匯入 ${count} 筆`);
-    closeIo();
-  } catch (err) {
-    showToast('❌ 匯入失敗：' + err.message);
-  }
+    showToast(`匯入 ${count} 筆`); closeIo();
+  } catch (err) { showToast('匯入失敗：' + err.message); }
   event.target.value = '';
 }
 
-function download(filename, content, type) {
-  const blob = new Blob([content], { type });
+function dl(filename, content, type) {
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
+  a.href = URL.createObjectURL(new Blob([content], { type }));
+  a.download = filename; a.click();
 }
-
 function todayStr() { return new Date().toISOString().slice(0,10); }
-
 function showToast(msg) {
-  const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = msg;
-  wrap.appendChild(t);
+  t.className = 'toast'; t.textContent = msg;
+  document.getElementById('toastWrap').appendChild(t);
   setTimeout(() => t.remove(), 2600);
 }
 window.showToast = showToast;
 
 init();
 </script>
-
 </body>
 </html>
