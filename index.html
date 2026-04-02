@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -20,31 +19,31 @@
 body { background: var(--milk); color: var(--text); font-family: 'Zen Kaku Gothic New', sans-serif; min-height: 100vh; padding-bottom: 84px; }
 
 /* ── HEADER ── */
-.app-header { background: var(–white); border-bottom: 1.5px solid var(–latte); padding: 16px 16px 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px var(–shadow); }
+.app-header { background: var(--white); border-bottom: 1.5px solid var(--latte); padding: 16px 16px 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px var(--shadow); }
 .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.app-title { font-family: ‘Noto Serif TC’, serif; font-size: 1.25rem; font-weight: 700; color: var(–deep); display: flex; align-items: center; gap: 8px; }
+.app-title { font-family: 'Noto Serif TC', serif; font-size: 1.25rem; font-weight: 700; color: var(--deep); display: flex; align-items: center; gap: 8px; }
 .app-title .emoji { font-size: 1.4rem; }
 /* 任務5: 刪除多餘的統計 subtitle */
 .header-actions { display: flex; gap: 8px; align-items: center; }
-.icon-btn { background: var(–cream); border: 1px solid var(–latte); border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(–brown); font-size: 1rem; transition: background 0.2s; }
-.icon-btn:hover { background: var(–moon-soft); }
+.icon-btn { background: var(--cream); border: 1px solid var(--latte); border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--brown); font-size: 1rem; transition: background 0.2s; }
+.icon-btn:hover { background: var(--moon-soft); }
 .search-bar { display: flex; gap: 8px; }
-.search-input { flex: 1; background: var(–cream); border: 1.5px solid var(–latte); border-radius: 12px; padding: 9px 14px 9px 36px; color: var(–text); font-family: ‘Zen Kaku Gothic New’, sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s, background 0.2s; position: relative; }
-.search-input::placeholder { color: var(–muted); opacity: 0.6; }
-.search-input:focus { border-color: var(–moon); background: var(–white); }
+.search-input { flex: 1; background: var(--cream); border: 1.5px solid var(--latte); border-radius: 12px; padding: 9px 14px 9px 36px; color: var(--text); font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s, background 0.2s; position: relative; }
+.search-input::placeholder { color: var(--muted); opacity: 0.6; }
+.search-input:focus { border-color: var(--moon); background: var(--white); }
 .search-wrap { position: relative; flex: 1; }
-.search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(–muted); font-size: 0.9rem; pointer-events: none; }
+.search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; pointer-events: none; }
 
 /* ── FILTER BAR ── */
-.filter-bar { background: var(–white); border-bottom: 1px solid var(–latte); padding: 10px 12px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; align-items: center; }
+.filter-bar { background: var(--white); border-bottom: 1px solid var(--latte); padding: 10px 12px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; align-items: center; }
 .filter-bar::-webkit-scrollbar { display: none; }
-.filter-chip { background: var(–cream); border: 1.5px solid var(–latte); border-radius: 20px; padding: 5px 13px; font-size: 0.8rem; font-family: ‘Zen Kaku Gothic New’, sans-serif; color: var(–brown); cursor: pointer; white-space: nowrap; transition: all 0.2s; flex-shrink: 0; }
-.filter-chip.active { background: var(–moon); border-color: var(–moon); color: var(–white); font-weight: 500; }
-.filter-chip:hover:not(.active) { background: var(–moon-soft); border-color: var(–moon); }
-.filter-divider { width: 1px; height: 20px; background: var(–latte); flex-shrink: 0; }
-.view-toggle { display: flex; gap: 0; background: var(–cream); border: 1.5px solid var(–latte); border-radius: 8px; overflow: hidden; margin-left: auto; flex-shrink: 0; }
-.view-btn { padding: 5px 10px; font-size: 0.85rem; cursor: pointer; background: transparent; border: none; color: var(–muted); transition: all 0.2s; }
-.view-btn.active { background: var(–moon); color: var(–white); }
+.filter-chip { background: var(--cream); border: 1.5px solid var(--latte); border-radius: 20px; padding: 5px 13px; font-size: 0.8rem; font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--brown); cursor: pointer; white-space: nowrap; transition: all 0.2s; flex-shrink: 0; }
+.filter-chip.active { background: var(--moon); border-color: var(--moon); color: var(--white); font-weight: 500; }
+.filter-chip:hover:not(.active) { background: var(--moon-soft); border-color: var(--moon); }
+.filter-divider { width: 1px; height: 20px; background: var(--latte); flex-shrink: 0; }
+.view-toggle { display: flex; gap: 0; background: var(--cream); border: 1.5px solid var(--latte); border-radius: 8px; overflow: hidden; margin-left: auto; flex-shrink: 0; }
+.view-btn { padding: 5px 10px; font-size: 0.85rem; cursor: pointer; background: transparent; border: none; color: var(--muted); transition: all 0.2s; }
+.view-btn.active { background: var(--moon); color: var(--white); }
 
 /* ── MAIN CONTENT ── */
 .main { padding: 14px 12px; }
@@ -58,33 +57,33 @@ body { background: var(--milk); color: var(--text); font-family: 'Zen Kaku Gothi
 .cards-list { display: flex; flex-direction: column; gap: 8px; }
 
 /* ── CARD ── */
-.card { background: var(–white); border: 1px solid var(–latte); border-radius: var(–radius); overflow: hidden; cursor: pointer; transition: transform 0.18s, box-shadow 0.18s; position: relative; }
-.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(–shadow-md); }
+.card { background: var(--white); border: 1px solid var(--latte); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.18s, box-shadow 0.18s; position: relative; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow-md); }
 .card:active { transform: scale(0.98); }
-.card-grid .card-thumb { width: 100%; aspect-ratio: 4/3; background: var(–cream); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; position: relative; overflow: hidden; }
+.card-grid .card-thumb { width: 100%; aspect-ratio: 4/3; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; position: relative; overflow: hidden; }
 .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .card-thumb .thumb-placeholder { font-size: 2.5rem; opacity: 0.5; }
 .card-body { padding: 10px; }
-.card-cat { font-size: 0.7rem; color: var(–moon2); font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 3px; }
-.card-title { font-family: ‘Noto Serif TC’, serif; font-size: 0.88rem; font-weight: 600; color: var(–text); line-height: 1.4; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.card-note { font-size: 0.75rem; color: var(–muted); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.card-url-chip { display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; color: var(–moon2); background: var(–moon-light); border-radius: 6px; padding: 2px 6px; margin-top: 5px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-cat { font-size: 0.7rem; color: var(--moon2); font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 3px; }
+.card-title { font-family: 'Noto Serif TC', serif; font-size: 0.88rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-note { font-size: 0.75rem; color: var(--muted); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-url-chip { display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; color: var(--moon2); background: var(--moon-light); border-radius: 6px; padding: 2px 6px; margin-top: 5px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .card-list { display: flex; gap: 12px; padding: 12px; align-items: flex-start; }
-.card-list .card-thumb-sm { width: 58px; height: 58px; min-width: 58px; border-radius: 10px; background: var(–cream); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; overflow: hidden; flex-shrink: 0; }
+.card-list .card-thumb-sm { width: 58px; height: 58px; min-width: 58px; border-radius: 10px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; overflow: hidden; flex-shrink: 0; }
 .card-list .card-thumb-sm img { width: 100%; height: 100%; object-fit: cover; }
 .card-list .card-info { flex: 1; min-width: 0; }
 .card-list .card-title { font-size: 0.9rem; -webkit-line-clamp: 1; }
 .card-list .card-note { -webkit-line-clamp: 1; }
-.card-date { font-size: 0.68rem; color: var(–muted); margin-top: 4px; }
+.card-date { font-size: 0.68rem; color: var(--muted); margin-top: 4px; }
 
 /* ── EMPTY STATE ── */
 .empty-state { text-align: center; padding: 48px 24px; }
 .empty-icon { font-size: 3.5rem; margin-bottom: 12px; opacity: 0.5; }
-.empty-title { font-family: ‘Noto Serif TC’, serif; font-size: 1rem; color: var(–muted); margin-bottom: 6px; }
-.empty-sub { font-size: 0.82rem; color: var(–muted); opacity: 0.7; }
+.empty-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--muted); margin-bottom: 6px; }
+.empty-sub { font-size: 0.82rem; color: var(--muted); opacity: 0.7; }
 
 /* ── FAB ── */
-.fab { position: fixed; bottom: 24px; right: 20px; width: 54px; height: 54px; background: linear-gradient(135deg, var(–moon) 0%, var(–moon2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(169,120,72,0.45); transition: transform 0.2s, box-shadow 0.2s; border: none; color: white; z-index: 200; }
+.fab { position: fixed; bottom: 24px; right: 20px; width: 54px; height: 54px; background: linear-gradient(135deg, var(--moon) 0%, var(--moon2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(169,120,72,0.45); transition: transform 0.2s, box-shadow 0.2s; border: none; color: white; z-index: 200; }
 .fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(169,120,72,0.55); }
 .fab:active { transform: scale(0.96); }
 
@@ -92,122 +91,120 @@ body { background: var(--milk); color: var(--text); font-family: 'Zen Kaku Gothi
 .overlay { position: fixed; inset: 0; background: rgba(61,43,26,0.45); z-index: 300; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); overscroll-behavior: contain; }
 .overlay.active { display: flex; }
 .overlay.center-modal { align-items: center; }
-.modal { background: var(–white); border-radius: 24px 24px 0 0; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1); scrollbar-width: none; display: flex; flex-direction: column; }
+.modal { background: var(--white); border-radius: 24px 24px 0 0; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1); scrollbar-width: none; display: flex; flex-direction: column; }
 .modal::-webkit-scrollbar { display: none; }
 .modal.small-modal { border-radius: 20px; max-width: 360px; animation: popIn 0.22s cubic-bezier(0.34,1.56,0.64,1); margin: 16px; }
 @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 12px; border-bottom: 1px solid var(–latte); background: var(–white); z-index: 1; flex-shrink: 0; position: sticky; top: 0; }
-.modal-title { font-family: ‘Noto Serif TC’, serif; font-size: 1.05rem; font-weight: 700; color: var(–deep); }
-.modal-close { width: 30px; height: 30px; border-radius: 50%; background: var(–cream); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; color: var(–muted); }
-.modal-close:hover { background: var(–latte); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 12px; border-bottom: 1px solid var(--latte); background: var(--white); z-index: 1; flex-shrink: 0; position: sticky; top: 0; }
+.modal-title { font-family: 'Noto Serif TC', serif; font-size: 1.05rem; font-weight: 700; color: var(--deep); }
+.modal-close { width: 30px; height: 30px; border-radius: 50%; background: var(--cream); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.modal-close:hover { background: var(--latte); }
 /* 任務5: 修正底部跑版 - modal-body 確保可滾動不溢出 */
 .modal-body { padding: 16px 18px 24px; flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
 
 /* ── FORM ── */
 .form-group { margin-bottom: 14px; }
-.form-label { display: block; font-size: 0.8rem; font-weight: 500; color: var(–brown); margin-bottom: 5px; }
-.form-label .req { color: var(–moon2); }
-.form-input, .form-select, .form-textarea { width: 100%; background: var(–cream); border: 1.5px solid var(–latte); border-radius: var(–radius-sm); padding: 10px 12px; font-family: ‘Zen Kaku Gothic New’, sans-serif; font-size: 0.88rem; color: var(–text); outline: none; transition: border-color 0.2s; }
-.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(–moon); background: var(–milk); }
+.form-label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--brown); margin-bottom: 5px; }
+.form-label .req { color: var(--moon2); }
+.form-input, .form-select, .form-textarea { width: 100%; background: var(--cream); border: 1.5px solid var(--latte); border-radius: var(--radius-sm); padding: 10px 12px; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.88rem; color: var(--text); outline: none; transition: border-color 0.2s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--moon); background: var(--milk); }
 .form-textarea { resize: vertical; min-height: 90px; }
-.form-hint { font-size: 0.72rem; color: var(–muted); margin-top: 3px; }
-.url-preview { border: 1.5px dashed var(–latte); border-radius: var(–radius-sm); padding: 10px 12px; margin-top: 6px; display: none; align-items: center; gap: 10px; background: var(–moon-light); }
+.form-hint { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+.url-preview { border: 1.5px dashed var(--latte); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 6px; display: none; align-items: center; gap: 10px; background: var(--moon-light); }
 .url-preview.visible { display: flex; }
 .url-preview-icon { font-size: 1.5rem; flex-shrink: 0; }
 .url-preview-info { flex: 1; min-width: 0; }
-.url-preview-title { font-size: 0.82rem; font-weight: 500; color: var(–text); }
-.url-preview-domain { font-size: 0.72rem; color: var(–muted); margin-top: 2px; }
+.url-preview-title { font-size: 0.82rem; font-weight: 500; color: var(--text); }
+.url-preview-domain { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
 .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
-.cat-option { border: 1.5px solid var(–latte); border-radius: 10px; padding: 8px 6px; text-align: center; cursor: pointer; background: var(–cream); transition: all 0.18s; }
-.cat-option.selected { border-color: var(–moon); background: var(–moon-light); }
-.cat-option:hover:not(.selected) { border-color: var(–moon); background: var(–moon-soft); }
+.cat-option { border: 1.5px solid var(--latte); border-radius: 10px; padding: 8px 6px; text-align: center; cursor: pointer; background: var(--cream); transition: all 0.18s; }
+.cat-option.selected { border-color: var(--moon); background: var(--moon-light); }
+.cat-option:hover:not(.selected) { border-color: var(--moon); background: var(--moon-soft); }
 .cat-emoji { font-size: 1.3rem; display: block; }
-.cat-name { font-size: 0.7rem; color: var(–brown); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cat-option.selected .cat-name { color: var(–moon2); font-weight: 500; }
-.img-upload-area { border: 2px dashed var(–latte); border-radius: var(–radius-sm); padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(–cream); }
-.img-upload-area:hover { border-color: var(–moon); background: var(–moon-soft); }
+.cat-name { font-size: 0.7rem; color: var(--brown); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cat-option.selected .cat-name { color: var(--moon2); font-weight: 500; }
+.img-upload-area { border: 2px dashed var(--latte); border-radius: var(--radius-sm); padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--cream); }
+.img-upload-area:hover { border-color: var(--moon); background: var(--moon-soft); }
 .img-upload-area .upload-icon { font-size: 2rem; opacity: 0.5; margin-bottom: 6px; }
-.img-upload-area p { font-size: 0.78rem; color: var(–muted); }
+.img-upload-area p { font-size: 0.78rem; color: var(--muted); }
 .img-preview-wrap { position: relative; display: inline-block; }
 .img-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 8px; display: block; }
 .img-remove { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; background: rgba(92,61,30,0.7); border-radius: 50%; border: none; color: white; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.btn-row { display: flex; gap: 10px; margin-top: 18px; padding: 14px 0 6px; position: sticky; bottom: 0; background: var(–white); z-index: 2; }
-.btn { flex: 1; padding: 12px; border-radius: 12px; border: none; font-family: ‘Zen Kaku Gothic New’, sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-.btn-primary { background: linear-gradient(135deg, var(–moon) 0%, var(–moon2) 100%); color: white; box-shadow: 0 3px 10px rgba(169,120,72,0.35); }
-.btn-secondary { background: var(–cream); color: var(–brown); border: 1.5px solid var(–latte); }
+.btn-row { display: flex; gap: 10px; margin-top: 18px; padding: 14px 0 6px; position: sticky; bottom: 0; background: var(--white); z-index: 2; }
+.btn { flex: 1; padding: 12px; border-radius: 12px; border: none; font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.btn-primary { background: linear-gradient(135deg, var(--moon) 0%, var(--moon2) 100%); color: white; box-shadow: 0 3px 10px rgba(169,120,72,0.35); }
+.btn-secondary { background: var(--cream); color: var(--brown); border: 1.5px solid var(--latte); }
 .btn-danger { background: #ffe8e5; color: #c0392b; border: 1.5px solid #f5c6c2; }
 
 /* ── DETAIL MODAL ── */
-.detail-thumb { width: 100%; aspect-ratio: 16/9; background: var(–cream); display: flex; align-items: center; justify-content: center; font-size: 4rem; overflow: hidden; }
+.detail-thumb { width: 100%; aspect-ratio: 16/9; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 4rem; overflow: hidden; }
 .detail-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .detail-cat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-.detail-cat-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(–moon2); background: var(–moon-light); border-radius: 20px; padding: 3px 10px; font-weight: 500; }
-.detail-title { font-family: ‘Noto Serif TC’, serif; font-size: 1.15rem; font-weight: 700; color: var(–deep); margin-bottom: 10px; line-height: 1.45; }
-.detail-note { font-size: 0.88rem; color: var(–text); line-height: 1.7; white-space: pre-wrap; margin-bottom: 14px; word-break: break-word; }
-.detail-url-btn { display: flex; align-items: center; gap: 8px; background: var(–moon-light); border: 1.5px solid var(–latte); border-radius: 12px; padding: 10px 14px; color: var(–moon2); font-size: 0.85rem; text-decoration: none; font-family: ‘Zen Kaku Gothic New’, sans-serif; cursor: pointer; margin-bottom: 14px; transition: all 0.18s; word-break: break-all; }
-.detail-url-btn:hover { background: var(–moon-soft); }
-.detail-meta { font-size: 0.72rem; color: var(–muted); border-top: 1px solid var(–latte); padding-top: 10px; margin-top: 4px; }
+.detail-cat-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--moon2); background: var(--moon-light); border-radius: 20px; padding: 3px 10px; font-weight: 500; }
+.detail-title { font-family: 'Noto Serif TC', serif; font-size: 1.15rem; font-weight: 700; color: var(--deep); margin-bottom: 10px; line-height: 1.45; }
+.detail-note { font-size: 0.88rem; color: var(--text); line-height: 1.7; white-space: pre-wrap; margin-bottom: 14px; word-break: break-word; }
+.detail-url-btn { display: flex; align-items: center; gap: 8px; background: var(--moon-light); border: 1.5px solid var(--latte); border-radius: 12px; padding: 10px 14px; color: var(--moon2); font-size: 0.85rem; text-decoration: none; font-family: 'Zen Kaku Gothic New', sans-serif; cursor: pointer; margin-bottom: 14px; transition: all 0.18s; word-break: break-all; }
+.detail-url-btn:hover { background: var(--moon-soft); }
+.detail-meta { font-size: 0.72rem; color: var(--muted); border-top: 1px solid var(--latte); padding-top: 10px; margin-top: 4px; }
 .detail-actions { display: flex; gap: 10px; margin-top: 16px; }
 
 /* ── SETTINGS ── */
 .settings-section { margin-bottom: 20px; }
-.settings-title { font-family: ‘Noto Serif TC’, serif; font-size: 0.9rem; font-weight: 600; color: var(–deep); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-.setting-item { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; background: var(–cream); border: 1px solid var(–latte); border-radius: 10px; margin-bottom: 6px; cursor: pointer; transition: background 0.18s; }
-.setting-item:hover { background: var(–moon-soft); }
-.setting-label { font-size: 0.85rem; color: var(–text); }
-.setting-arrow { color: var(–muted); font-size: 0.85rem; }
-.cat-edit-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(–cream); border: 1px solid var(–latte); border-radius: 10px; margin-bottom: 6px; }
+.settings-title { font-family: 'Noto Serif TC', serif; font-size: 0.9rem; font-weight: 600; color: var(--deep); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.setting-item { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; background: var(--cream); border: 1px solid var(--latte); border-radius: 10px; margin-bottom: 6px; cursor: pointer; transition: background 0.18s; }
+.setting-item:hover { background: var(--moon-soft); }
+.setting-label { font-size: 0.85rem; color: var(--text); }
+.setting-arrow { color: var(--muted); font-size: 0.85rem; }
+.cat-edit-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--cream); border: 1px solid var(--latte); border-radius: 10px; margin-bottom: 6px; }
 .cat-edit-emoji { font-size: 1.3rem; cursor: pointer; min-width: 32px; text-align: center; }
-.cat-edit-name { flex: 1; font-size: 0.88rem; color: var(–text); }
-.cat-edit-del { background: none; border: none; color: var(–muted); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 6px; transition: all 0.18s; }
+.cat-edit-name { flex: 1; font-size: 0.88rem; color: var(--text); }
+.cat-edit-del { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 6px; transition: all 0.18s; }
 .cat-edit-del:hover { background: #ffe8e5; color: #c0392b; }
-.login-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; background: linear-gradient(160deg, var(–milk) 0%, var(–cream) 100%); }
+.login-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; background: linear-gradient(160deg, var(--milk) 0%, var(--cream) 100%); }
 .login-icon { font-size: 4rem; margin-bottom: 16px; }
-.login-title { font-family: ‘Noto Serif TC’, serif; font-size: 1.6rem; font-weight: 700; color: var(–deep); margin-bottom: 6px; }
-.login-sub { font-size: 0.88rem; color: var(–muted); margin-bottom: 32px; line-height: 1.6; }
-.login-card { background: var(–white); border: 1px solid var(–latte); border-radius: 20px; padding: 24px; width: 100%; max-width: 320px; box-shadow: 0 4px 24px var(–shadow); }
+.login-title { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 700; color: var(--deep); margin-bottom: 6px; }
+.login-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+.login-card { background: var(--white); border: 1px solid var(--latte); border-radius: 20px; padding: 24px; width: 100%; max-width: 320px; box-shadow: 0 4px 24px var(--shadow); }
 .login-card .form-label { text-align: left; }
 .login-card .btn { width: 100%; margin-top: 14px; }
 
 /* Toast */
 .toast-wrap { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 500; pointer-events: none; }
-.toast { background: var(–deep); color: var(–white); padding: 10px 18px; border-radius: 24px; font-size: 0.84rem; animation: toastIn 0.25s ease, toastOut 0.3s ease 2s forwards; white-space: nowrap; box-shadow: 0 4px 16px rgba(92,61,30,0.3); }
+.toast { background: var(--deep); color: var(--white); padding: 10px 18px; border-radius: 24px; font-size: 0.84rem; animation: toastIn 0.25s ease, toastOut 0.3s ease 2s forwards; white-space: nowrap; box-shadow: 0 4px 16px rgba(92,61,30,0.3); }
 @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
-.loading { display: flex; align-items: center; justify-content: center; padding: 48px; color: var(–muted); font-size: 0.9rem; gap: 8px; }
-.spinner { width: 20px; height: 20px; border: 2px solid var(–latte); border-top-color: var(–moon); border-radius: 50%; animation: spin 0.6s linear infinite; }
+.loading { display: flex; align-items: center; justify-content: center; padding: 48px; color: var(--muted); font-size: 0.9rem; gap: 8px; }
+.spinner { width: 20px; height: 20px; border: 2px solid var(--latte); border-top-color: var(--moon); border-radius: 50%; animation: spin 0.6s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .confirm-body { padding: 20px 18px 22px; text-align: center; }
 .confirm-icon { font-size: 2.5rem; margin-bottom: 10px; }
-.confirm-title { font-family: ‘Noto Serif TC’, serif; font-size: 1rem; font-weight: 600; color: var(–deep); margin-bottom: 6px; }
-.confirm-msg { font-size: 0.84rem; color: var(–muted); margin-bottom: 18px; line-height: 1.6; }
-.io-btn { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border: 1.5px solid var(–latte); border-radius: 12px; background: var(–cream); color: var(–text); font-family: ‘Zen Kaku Gothic New’, sans-serif; font-size: 0.9rem; cursor: pointer; width: 100%; margin-bottom: 8px; transition: all 0.2s; text-align: left; }
-.io-btn:hover { background: var(–moon-soft); border-color: var(–moon); }
+.confirm-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; font-weight: 600; color: var(--deep); margin-bottom: 6px; }
+.confirm-msg { font-size: 0.84rem; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+.io-btn { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border: 1.5px solid var(--latte); border-radius: 12px; background: var(--cream); color: var(--text); font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.9rem; cursor: pointer; width: 100%; margin-bottom: 8px; transition: all 0.2s; text-align: left; }
+.io-btn:hover { background: var(--moon-soft); border-color: var(--moon); }
 .io-btn-icon { font-size: 1.2rem; }
 .io-btn-text .io-label { font-weight: 500; }
-.io-btn-text .io-sub { font-size: 0.72rem; color: var(–muted); margin-top: 1px; }
+.io-btn-text .io-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
 .add-cat-row { display: flex; gap: 8px; margin-top: 8px; }
 .add-cat-row .form-input { flex: 1; }
 .add-cat-emoji-inp { width: 52px !important; text-align: center; font-size: 1.1rem; }
-.no-results { text-align: center; padding: 32px 16px; color: var(–muted); font-size: 0.88rem; }
-mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; padding: 0 2px; }
+.no-results { text-align: center; padding: 32px 16px; color: var(--muted); font-size: 0.88rem; }
+mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; padding: 0 2px; }
 
 /* 任務5: 刪除 room-badge (ID標籤) */
 .room-badge { display: none !important; }
 
 @media (max-width: 540px) {
-.modal-body { padding: 14px 14px 20px; }
-.cat-grid { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-.cat-grid::-webkit-scrollbar { display: none; }
+  .modal-body { padding: 14px 14px 20px; }
+  .cat-grid { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .cat-grid::-webkit-scrollbar { display: none; }
 }
 </style>
-
 </head>
 <body>
 
 <!-- ══ LOGIN SCREEN ══ -->
-
 <div id="loginScreen" class="login-screen" style="display:none">
   <div class="login-icon">📖</div>
   <div class="login-title">M.Y 小百科</div>
@@ -222,11 +219,9 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
 </div>
 
 <!-- ══ APP ══ -->
-
 <div id="app" style="display:none">
 
   <!-- Header - 任務5: 刪除頂部統計標籤，只保留標題和功能按鈕 -->
-
   <header class="app-header">
     <div class="header-top">
       <div>
@@ -248,7 +243,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
   </header>
 
   <!-- Filter bar -->
-
   <div class="filter-bar" id="filterBar">
     <div class="view-toggle">
       <button class="view-btn active" id="btnGrid" onclick="setView('grid')">▦</button>
@@ -259,7 +253,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
   </div>
 
   <!-- Main -->
-
   <main class="main">
     <!-- 任務5: stats-bar 隱藏（CSS display:none） -->
     <div class="stats-bar" id="statsBar"></div>
@@ -267,20 +260,16 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
   </main>
 
   <!-- FAB -->
-
-<button class="fab" onclick="openAddModal()">＋</button>
+  <button class="fab" onclick="openAddModal()">＋</button>
 
   <!-- 任務5: 刪除 room-badge (my0918 ID標籤)，用 CSS display:none 隱藏 -->
-
   <div class="room-badge" id="roomBadge">🏠 <span id="roomCodeDisplay">-</span></div>
 </div>
 
 <!-- ══ TOAST ══ -->
-
 <div class="toast-wrap" id="toastWrap"></div>
 
 <!-- ══ ADD/EDIT MODAL ══ -->
-
 <div class="overlay" id="addOverlay" onclick="closeOverlay(this,'addModal')">
   <div class="modal" id="addModal" onclick="event.stopPropagation()">
     <div class="modal-header">
@@ -340,7 +329,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
 </div>
 
 <!-- ══ DETAIL MODAL ══ -->
-
 <div class="overlay" id="detailOverlay" onclick="closeOverlay(this,'detailModal')">
   <div class="modal" id="detailModal" onclick="event.stopPropagation()">
     <div id="detailThumb" class="detail-thumb"></div>
@@ -363,7 +351,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
 </div>
 
 <!-- ══ CONFIRM MODAL ══ -->
-
 <div class="overlay center-modal" id="confirmOverlay">
   <div class="modal small-modal" onclick="event.stopPropagation()">
     <div class="confirm-body">
@@ -379,7 +366,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
 </div>
 
 <!-- ══ SETTINGS MODAL ══ -->
-
 <div class="overlay" id="settingsOverlay" onclick="closeOverlay(this,'settingsModal')">
   <div class="modal" id="settingsModal" onclick="event.stopPropagation()">
     <div class="modal-header">
@@ -412,7 +398,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
 </div>
 
 <!-- ══ IO MODAL ══ -->
-
 <div class="overlay" id="ioOverlay" onclick="closeOverlay(this,'ioModal')">
   <div class="modal" id="ioModal" onclick="event.stopPropagation()">
     <div class="modal-header">
@@ -438,7 +423,6 @@ mark { background: var(–moon-soft); color: var(–deep); border-radius: 3px; p
 </div>
 
 <!-- Firebase SDK -->
-
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
 import {
@@ -968,6 +952,5 @@ window.showToast = showToast;
 
 init();
 </script>
-
 </body>
 </html>
