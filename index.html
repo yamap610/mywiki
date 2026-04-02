@@ -35,8 +35,7 @@ body {
   color: var(--text);
   font-family: 'Zen Kaku Gothic New', sans-serif;
   min-height: 100vh;
-  /* [FIX] 確保底部不被 FAB/room-badge 遮擋 */
-  padding-bottom: 100px;
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
 }
 
 .app-header {
@@ -530,26 +529,93 @@ body {
 .add-cat-row .form-input { flex: 1; }
 .add-cat-emoji-inp { width: 52px !important; text-align: center; font-size: 1.1rem; }
 
-.no-results { text-align: center; padding: 32px 16px; color: var(--muted); font-size: 0.88rem; }
+/* 搜尋無結果：垂直水平置中 */
+.no-results-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 240px; text-align: center;
+  color: var(--muted); font-size: 0.88rem; padding: 24px;
+}
+.no-results-wrap .nr-icon { font-size: 2.8rem; margin-bottom: 10px; opacity: 0.45; }
 mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; padding: 0 2px; }
 
-/* [FIX] room badge - 讓 FAB 不蓋住 badge */
-.room-badge {
-  position: fixed;
-  bottom: 28px;
-  left: 16px;
-  background: var(--white);
-  border: 1px solid var(--latte);
-  border-radius: 20px;
-  padding: 5px 14px;
-  font-size: 0.72rem;
-  color: var(--muted);
-  z-index: 150;
-  box-shadow: 0 2px 8px var(--shadow);
-  display: flex; align-items: center; gap: 5px;
-  white-space: nowrap;
-  pointer-events: none;
+/* 搜尋 x 清空按鈕 */
+.search-clear {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: var(--latte); border: none; border-radius: 50%;
+  width: 18px; height: 18px;
+  display: none; align-items: center; justify-content: center;
+  font-size: 0.6rem; color: var(--brown); cursor: pointer; line-height: 1;
 }
+.search-clear.visible { display: flex; }
+.search-input { padding-right: 32px !important; }
+
+/* Lightbox */
+.lightbox-ov {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+  z-index: 900; display: none;
+  align-items: center; justify-content: center; cursor: zoom-out;
+}
+.lightbox-ov.active { display: flex; }
+.lightbox-img { max-width: 96vw; max-height: 92vh; object-fit: contain; border-radius: 10px; }
+.lightbox-close {
+  position: absolute; top: 14px; right: 16px;
+  background: rgba(255,255,255,0.18); border: none; border-radius: 50%;
+  width: 38px; height: 38px; color: #fff; font-size: 1.1rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* 批量選取 */
+.bulk-bar {
+  position: sticky; top: 0; z-index: 110;
+  background: var(--deep); color: var(--white);
+  padding: 10px 14px;
+  display: none; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.bulk-bar.active { display: flex; }
+.bulk-count { font-size: 0.84rem; flex: 1; }
+.bulk-act-btn {
+  padding: 6px 14px; border-radius: 8px; border: none;
+  font-size: 0.8rem; cursor: pointer;
+  font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 500;
+}
+.bulk-del-btn { background: #e05050; color: #fff; }
+.bulk-cancel-btn { background: rgba(255,255,255,0.15); color: var(--white); }
+.card-select-check {
+  position: absolute; top: 8px; left: 8px;
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--latte); background: var(--white);
+  display: none; align-items: center; justify-content: center;
+  font-size: 0.75rem; z-index: 5;
+}
+.bulk-mode .card-select-check { display: flex; }
+.card-selected .card-select-check { background: var(--moon); border-color: var(--moon); color: #fff; }
+.card-selected { outline: 2.5px solid var(--moon); }
+
+/* 底部導覽 */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--white); border-top: 1.5px solid var(--latte);
+  display: none; z-index: 500;
+  box-shadow: 0 -2px 16px var(--shadow);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.bottom-nav.show { display: flex; }
+.bn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 8px 2px 6px; gap: 3px; cursor: pointer;
+  color: var(--muted); font-family: 'Zen Kaku Gothic New', sans-serif;
+  border: none; background: none;
+  -webkit-tap-highlight-color: transparent; transition: color .15s;
+}
+.bn-item.active { color: var(--moon2); }
+.bn-item:active { opacity: .7; }
+.bn-icon { font-size: 20px; line-height: 1; }
+.bn-label { font-size: 9.5px; font-weight: 600; letter-spacing: .2px; line-height: 1; }
+
+/* FAB 在 tab bar 上方 */
+.fab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
 
 @media (max-width: 540px) {
   .modal-body { padding: 14px 14px 20px; }
@@ -582,14 +648,15 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         <div class="app-subtitle">嘟嘟一家 · 知識寶庫</div>
       </div>
       <div class="header-actions">
+        <button class="icon-btn" id="bulkToggleBtn" onclick="toggleBulkMode()" title="批量選取">☑️</button>
         <button class="icon-btn" onclick="openSettings()" title="設定">⚙️</button>
-        <button class="icon-btn" onclick="openIo()" title="匯出/匯入">📦</button>
       </div>
     </div>
     <div class="search-bar">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
         <input id="searchInput" class="search-input" type="text" placeholder="搜尋標題、筆記、網址…" oninput="onSearch()">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()" title="清除搜尋">✕</button>
       </div>
     </div>
   </header>
@@ -603,15 +670,35 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
     <button class="filter-chip active" data-cat="all" onclick="setCatFilter('all')">全部</button>
   </div>
 
+  <div class="bulk-bar" id="bulkBar">
+    <span class="bulk-count" id="bulkCount">已選 0 項</span>
+    <button class="bulk-act-btn bulk-del-btn" onclick="bulkDelete()">刪除選取</button>
+    <button class="bulk-act-btn bulk-cancel-btn" onclick="toggleBulkMode()">取消</button>
+  </div>
+
   <main class="main">
     <div class="stats-bar" id="statsBar"></div>
     <div id="cardsContainer"></div>
   </main>
 
 <button class="fab" onclick="openAddModal()">＋</button>
-
-  <div class="room-badge" id="roomBadge">🏠 <span id="roomCodeDisplay">-</span></div>
 </div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-ov" id="lightboxOv" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="bn-item" onclick="wikiGoApp('home')"><span class="bn-icon">🏠</span><span class="bn-label">首頁</span></button>
+  <button class="bn-item" onclick="wikiGoApp('sec')"><span class="bn-icon">🐧</span><span class="bn-label">家務</span></button>
+  <button class="bn-item" onclick="wikiGoApp('inv')"><span class="bn-icon">🐰</span><span class="bn-label">庫存</span></button>
+  <button class="bn-item" onclick="wikiGoApp('ward')"><span class="bn-icon">👗</span><span class="bn-label">衣櫃</span></button>
+  <button class="bn-item active"><span class="bn-icon">📖</span><span class="bn-label">百科</span></button>
+  <button class="bn-item" onclick="wikiGoApp('pocket')"><span class="bn-icon">🗺️</span><span class="bn-label">地圖</span></button>
+</nav>
 
 <div class="toast-wrap" id="toastWrap"></div>
 
@@ -740,38 +827,32 @@ mark { background: var(--moon-soft); color: var(--deep); border-radius: 3px; pad
         </div>
       </div>
       <div class="settings-section">
+        <div class="settings-title">📦 備份與還原</div>
+        <button class="io-btn" onclick="exportJson()">
+          <span class="io-btn-icon">📤</span>
+          <div class="io-btn-text"><div class="io-label">匯出 JSON 備份</div><div class="io-sub">下載完整資料備份檔</div></div>
+        </button>
+        <button class="io-btn" onclick="exportCsv()">
+          <span class="io-btn-icon">📊</span>
+          <div class="io-btn-text"><div class="io-label">匯出 CSV</div><div class="io-sub">可用 Excel 開啟的試算表格式</div></div>
+        </button>
+        <button class="io-btn" onclick="document.getElementById('importInput').click()">
+          <span class="io-btn-icon">📥</span>
+          <div class="io-btn-text"><div class="io-label">匯入 JSON 還原</div><div class="io-sub">從備份檔案還原（會合併資料）</div></div>
+        </button>
+        <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
+      </div>
+      <div class="settings-section">
         <div class="settings-title">📊 統計</div>
         <div id="statsDetail" style="font-size:0.85rem; color:var(--muted); line-height:1.8;"></div>
+      </div>
+      <div class="btn-row" style="position:static; padding-bottom:8px;">
+        <button class="btn btn-secondary" onclick="closeSettings()">關閉</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- IO MODAL -->
-
-<div class="overlay" id="ioOverlay" onclick="closeOverlay(this,'ioModal')">
-  <div class="modal" id="ioModal" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <div class="modal-title">📦 匯出 / 匯入</div>
-      <button class="modal-close" onclick="closeIo()">✕</button>
-    </div>
-    <div class="modal-body">
-      <button class="io-btn" onclick="exportJson()">
-        <span class="io-btn-icon">📤</span>
-        <div class="io-btn-text"><div class="io-label">匯出 JSON 備份</div><div class="io-sub">下載完整資料備份檔</div></div>
-      </button>
-      <button class="io-btn" onclick="exportCsv()">
-        <span class="io-btn-icon">📊</span>
-        <div class="io-btn-text"><div class="io-label">匯出 CSV</div><div class="io-sub">可用 Excel 開啟的試算表格式</div></div>
-      </button>
-      <button class="io-btn" onclick="document.getElementById('importInput').click()">
-        <span class="io-btn-icon">📥</span>
-        <div class="io-btn-text"><div class="io-label">匯入 JSON 還原</div><div class="io-sub">從備份檔案還原（會合併資料）</div></div>
-      </button>
-      <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
-    </div>
-  </div>
-</div>
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
@@ -800,6 +881,7 @@ let selectedCatId = null;
 let imgBase64 = null;
 let unsubEntries = null;
 let unsubMeta = null;
+let bulkSelected = new Set();
 
 const DEFAULT_CATS = [
   { id: 'parenting', emoji: '👶🏻', name: '育兒知識' },
@@ -816,6 +898,7 @@ window.openAddModal = openAddModal;
 window.closeAddModal = closeAddModal;
 window.closeOverlay = closeOverlay;
 window.onSearch = onSearch;
+window.clearSearch = clearSearch;
 window.setCatFilter = setCatFilter;
 window.setView = setView;
 window.saveEntry = saveEntry;
@@ -824,7 +907,7 @@ window.confirmDelete = confirmDelete;
 window.doDelete = doDelete;
 window.closeConfirm = closeConfirm;
 window.closeDetailModal = closeDetailModal;
-window.openDetail = openDetail;   // [FIX] 關鍵：卡片 onclick 呼叫此函式
+window.openDetail = openDetail;
 window.openSettings = openSettings;
 window.closeSettings = closeSettings;
 window.addCategory = addCategory;
@@ -839,6 +922,25 @@ window.onImgFile = onImgFile;
 window.onImgUrlInput = onImgUrlInput;
 window.onUrlInput = onUrlInput;
 window.fetchUrlPreview = fetchUrlPreview;
+window.toggleBulkMode = toggleBulkMode;
+window.bulkDelete = bulkDelete;
+window.closeLightbox = closeLightbox;
+window.wikiGoApp = wikiGoApp;
+window.cardClick = cardClick;
+window.openLightbox = openLightbox;
+
+// ── 導覽 ──
+const WIKI_URLS = {
+  home: 'https://yui0151.github.io/home/',
+  sec:  'https://yui0151.github.io/secretary/',
+  inv:  'https://yui0151.github.io/inventory/',
+  ward: 'https://yui0151.github.io/wardrobe/',
+  pocket: 'https://yamap610.github.io/pocket-list/',
+};
+function wikiGoApp(key) {
+  const base = WIKI_URLS[key]; if (!base) return;
+  window.location.href = base + (roomCode ? '?code=' + roomCode : '');
+}
 
 function init() {
   const params = new URLSearchParams(location.search);
@@ -863,7 +965,7 @@ function startApp(code) {
   localStorage.setItem('dash_last_room', code);
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  document.getElementById('roomCodeDisplay').textContent = code;
+  document.getElementById('bottomNav').classList.add('show');
   subscribeData();
 }
 
@@ -979,6 +1081,16 @@ function getFiltered() {
 
 function onSearch() {
   searchQ = document.getElementById('searchInput').value;
+  const btn = document.getElementById('searchClear');
+  if (btn) btn.classList.toggle('visible', searchQ.length > 0);
+  renderCards();
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  searchQ = '';
+  const btn = document.getElementById('searchClear');
+  if (btn) btn.classList.remove('visible');
   renderCards();
 }
 
@@ -1018,6 +1130,7 @@ function renderStats() {
 function renderCards() {
   const container = document.getElementById('cardsContainer');
   const list = getFiltered();
+  const isBulk = bulkSelected !== undefined && document.getElementById('bulkBar').classList.contains('active');
 
   if (entries.length === 0) {
     container.innerHTML = `
@@ -1029,7 +1142,7 @@ function renderCards() {
     return;
   }
   if (list.length === 0) {
-    container.innerHTML = `<div class="no-results">😕 找不到符合的收藏</div>`;
+    container.innerHTML = `<div class="no-results-wrap"><div class="nr-icon">😕</div><div>找不到符合的收藏</div></div>`;
     return;
   }
 
@@ -1040,17 +1153,20 @@ function renderCards() {
   };
 
   if (currentView === 'grid') {
-    container.className = 'cards-grid';
+    container.className = 'cards-grid' + (isBulk ? ' bulk-mode' : '');
     container.innerHTML = list.map(e => {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const domain = e.url ? tryGetDomain(e.url) : '';
       const safeId = e.id.replace(/'/g, "\\'");
+      const safeThumb = thumb ? thumb.replace(/'/g, "\\'") : '';
+      const isSel = bulkSelected.has(e.id);
       return `
-        <div class="card card-grid" onclick="openDetail('${safeId}')">
+        <div class="card card-grid${isSel ? ' card-selected' : ''}" onclick="cardClick('${safeId}')">
+          <div class="card-select-check">${isSel ? '✓' : ''}</div>
           <div class="card-thumb">
             ${thumb
-              ? `<img src="${thumb}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="thumb-placeholder" style="display:none">${cat ? cat.emoji : '📄'}</div>`
+              ? `<img src="${thumb}" alt="" onclick="if(!document.getElementById('bulkBar').classList.contains('active')){event.stopPropagation();openLightbox('${safeThumb}')}" onerror="this.style.display='none'">`
               : `<span class="thumb-placeholder">${cat ? cat.emoji : '📄'}</span>`}
           </div>
           <div class="card-body">
@@ -1062,18 +1178,18 @@ function renderCards() {
         </div>`;
     }).join('');
   } else {
-    container.className = 'cards-list';
+    container.className = 'cards-list' + (isBulk ? ' bulk-mode' : '');
     container.innerHTML = list.map(e => {
       const cat = categories.find(c => c.id === e.cat);
       const thumb = e.imgData || e.imgUrl;
       const dateStr = e.createdAt ? new Date(e.createdAt.toDate()).toLocaleDateString('zh-TW') : '';
       const safeId = e.id.replace(/'/g, "\\'");
+      const isSel = bulkSelected.has(e.id);
       return `
-        <div class="card card-list" onclick="openDetail('${safeId}')">
+        <div class="card card-list${isSel ? ' card-selected' : ''}" onclick="cardClick('${safeId}')">
+          <div class="card-select-check">${isSel ? '✓' : ''}</div>
           <div class="card-thumb-sm">
-            ${thumb
-              ? `<img src="${thumb}" alt="" onerror="this.style.display='none';this.parentElement.textContent='${cat ? cat.emoji : '📄'}'"><span style="display:none"></span>`
-              : (cat ? cat.emoji : '📄')}
+            ${thumb ? `<img src="${thumb}" alt="" onerror="this.style.display='none'">` : (cat ? cat.emoji : '📄')}
           </div>
           <div class="card-info">
             <div class="card-cat">${cat ? cat.emoji + ' ' + cat.name : ''}</div>
@@ -1084,6 +1200,46 @@ function renderCards() {
         </div>`;
     }).join('');
   }
+}
+
+// ── 批量選取 ──
+function toggleBulkMode() {
+  const bar = document.getElementById('bulkBar');
+  const isActive = bar.classList.toggle('active');
+  if (!isActive) { bulkSelected.clear(); }
+  renderCards();
+}
+
+function cardClick(id) {
+  if (document.getElementById('bulkBar').classList.contains('active')) {
+    if (bulkSelected.has(id)) bulkSelected.delete(id); else bulkSelected.add(id);
+    document.getElementById('bulkCount').textContent = `已選 ${bulkSelected.size} 項`;
+    renderCards();
+  } else {
+    openDetail(id);
+  }
+}
+
+async function bulkDelete() {
+  if (bulkSelected.size === 0) { showToast('請先勾選項目'); return; }
+  if (!confirm(`確定要刪除選取的 ${bulkSelected.size} 筆收藏嗎？此操作無法復原。`)) return;
+  for (const id of bulkSelected) {
+    await deleteDoc(doc(db, `vault_v1/${roomCode}/entries`, id));
+  }
+  showToast(`已刪除 ${bulkSelected.size} 筆`);
+  bulkSelected.clear();
+  toggleBulkMode();
+}
+
+// ── Lightbox ──
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxOv').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightboxOv').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 function tryGetDomain(url) {
@@ -1300,8 +1456,8 @@ async function addCategory() {
   showToast('✅ 分類已新增');
 }
 
-function openIo() { document.getElementById('ioOverlay').classList.add('active'); }
-function closeIo() { document.getElementById('ioOverlay').classList.remove('active'); }
+function openIo() { openSettings(); }
+function closeIo() { closeSettings(); }
 
 function exportJson() {
   const data = {
